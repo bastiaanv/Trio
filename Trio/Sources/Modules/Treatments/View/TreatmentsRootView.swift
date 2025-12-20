@@ -469,8 +469,7 @@ extension Treatments {
                     }
                 } label: {
                     HStack {
-                        if state.isBolusInProgress && state.amount > 0 &&
-                            !state.externalInsulin && (state.carbs == 0 || state.fat == 0 || state.protein == 0)
+                        if state.isLoopInProgress || isInbolusState
                         {
                             ProgressView()
                         }
@@ -532,6 +531,10 @@ extension Treatments {
                 return Text("Bolus In Progress...")
             }
 
+            if state.isLoopInProgress {
+                return Text("Loop In Progress...")
+            }
+
             switch (hasInsulin, hasCarbs, hasFatOrProtein) {
             case (true, true, true):
                 return Text("Log Meal and \(bolusString)")
@@ -577,11 +580,14 @@ extension Treatments {
         }
 
         private var disableTaskButton: Bool {
-            (
-                state.isBolusInProgress && state
-                    .amount > 0 && !state.externalInsulin && (state.carbs == 0 || state.fat == 0 || state.protein == 0)
-            ) || state
-                .addButtonPressed || limitExceeded
+            isInbolusState || state.addButtonPressed || limitExceeded || state.isLoopInProgress
+        }
+
+        private var isInbolusState: Bool {
+            state.isBolusInProgress &&
+                state.amount > 0 &&
+                !state.externalInsulin &&
+                (state.carbs == 0 || state.fat == 0 || state.protein == 0)
         }
     }
 

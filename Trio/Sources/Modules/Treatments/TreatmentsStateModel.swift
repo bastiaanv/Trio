@@ -137,7 +137,9 @@ extension Treatments {
 
         typealias PumpEvent = PumpEventStored.EventType
 
+        var isLoopInProgress: Bool = false
         var isBolusInProgress: Bool = false
+        private var loopProgressCancellable: AnyCancellable?
         private var bolusProgressCancellable: AnyCancellable?
 
         func unsubscribe() {
@@ -160,6 +162,7 @@ extension Treatments {
             registerSubscribers()
             setupBolusStateConcurrently()
             subscribeToBolusProgress()
+            subscribeToLoopProgress()
         }
 
         deinit {
@@ -174,6 +177,7 @@ extension Treatments {
 
             unsubscribe()
             bolusProgressCancellable?.cancel()
+            loopProgressCancellable?.cancel()
 
             broadcaster?.unregister(DeterminationObserver.self, observer: self)
             broadcaster?.unregister(BolusFailureObserver.self, observer: self)
@@ -223,6 +227,15 @@ extension Treatments {
                     guard let self = self else { return }
                     // If progressValue is non-nil, a bolus is in progress.
                     self.isBolusInProgress = (progressValue != nil)
+                }
+        }
+
+        private func subscribeToLoopProgress() {
+            loopProgressCancellable = apsManager.isLooping
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] value in
+                    guard let self = self else { return }
+                    self.isLoopInProgress = value
                 }
         }
 
