@@ -263,7 +263,6 @@
 		3E470F0E2DFA147500ACAF34 /* MedtrumKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E2F52DF72793005C358C /* MedtrumKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E9D22DE2DF729A0005E4DAA /* EversenseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9D22DD2DF729A0005E4DAA /* EversenseKit.framework */; };
 		3E9D22DF2DF729A0005E4DAA /* EversenseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9D22DD2DF729A0005E4DAA /* EversenseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3E9D23ED2DF72D07005E4DAA /* ConfigOverride.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3E9D23EC2DF72D07005E4DAA /* ConfigOverride.xcconfig */; };
 		3E28F2AB2EB5337F00FB9EEB /* ConnectIQ in Frameworks */ = {isa = PBXBuildFile; productRef = 3E28F2AA2EB5337F00FB9EEB /* ConnectIQ */; };
 		45252C95D220E796FDB3B022 /* ConfigEditorDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8A87AA037BD079BA3528BA /* ConfigEditorDataFlow.swift */; };
 		45717281F743594AA9D87191 /* ConfigEditorRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920DDB21E5D0EB813197500D /* ConfigEditorRootView.swift */; };
@@ -1094,7 +1093,6 @@
 		3BF85FE12E427312000D7351 /* IOBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOBService.swift; sourceTree = "<group>"; };
 		3E94E2F52DF72793005C358C /* MedtrumKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MedtrumKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E9D22DD2DF729A0005E4DAA /* EversenseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EversenseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E9D23EC2DF72D07005E4DAA /* ConfigOverride.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = ConfigOverride.xcconfig; path = ../ConfigOverride.xcconfig; sourceTree = SOURCE_ROOT; };
 		3F60E97100041040446F44E7 /* PumpConfigStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PumpConfigStateModel.swift; sourceTree = "<group>"; };
 		3F8A87AA037BD079BA3528BA /* ConfigEditorDataFlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigEditorDataFlow.swift; sourceTree = "<group>"; };
 		42369F66CF91F30624C0B3A6 /* BasalProfileEditorProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BasalProfileEditorProvider.swift; sourceTree = "<group>"; };
@@ -2321,7 +2319,6 @@
 				CE1F6DE62BAF1A180064EB8D /* BuildDetails.plist */,
 				38F3783A2613555C009DB701 /* Config.xcconfig */,
 				BD1CF8B72C1A4A8400CB930A /* ConfigOverride.xcconfig */,
-				3E9D23EC2DF72D07005E4DAA /* ConfigOverride.xcconfig */,
 				388E595A25AD948C0019842D /* Trio */,
 				587A54C82BCDCE0F009D38E2 /* Model */,
 				38FCF3EE25E9028E0078B0D1 /* TrioTests */,
@@ -4001,7 +3998,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E9D23ED2DF72D07005E4DAA /* ConfigOverride.xcconfig in Resources */,
 				8A91342C2D63D9A2007F8874 /* InfoPlist.xcstrings in Resources */,
 				CE1F6DE72BAF1A180064EB8D /* BuildDetails.plist in Resources */,
 				3B3B57C92DA07B3400849D16 /* GoogleService-Info.plist in Resources */,
