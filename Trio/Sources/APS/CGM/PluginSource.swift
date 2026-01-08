@@ -146,8 +146,7 @@ extension PluginSource: CGMManagerDelegate {
     func startDateToFilterNewData(for _: CGMManager) -> Date? {
         dispatchPrecondition(condition: .onQueue(processQueue))
 
-        let last = glucoseStorage.lastGlucoseDate()
-        return last == .distantPast ? nil : last
+        return glucoseStorage.lastGlucoseDate()
     }
 
     func cgmManagerDidUpdateState(_ cgmManager: CGMManager) {
