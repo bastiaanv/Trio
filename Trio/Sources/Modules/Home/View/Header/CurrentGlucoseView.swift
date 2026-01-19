@@ -141,7 +141,7 @@ struct CurrentGlucoseView: View {
         var secondLastGlucose = Decimal(glucose.first?.glucose ?? 0)
         if units == .mmolL {
             lastGlucose = lastGlucose.asMmolL
-            secondLastGlucose = lastGlucose.asMmolL
+            secondLastGlucose = secondLastGlucose.asMmolL
         }
         let delta = lastGlucose - secondLastGlucose
         return deltaFormatter.string(from: delta as NSNumber) ?? "--"
