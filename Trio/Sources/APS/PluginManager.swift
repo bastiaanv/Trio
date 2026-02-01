@@ -1,3 +1,4 @@
+import AccuChekKit
 import CGMBLEKit
 import EversenseKit
 import Foundation
@@ -46,6 +47,11 @@ class BasePluginManager: Injectable, PluginManager {
             pluginIdentifier: EversenseCGMManager.pluginIdentifier,
             localizedTitle: String(localized: "Eversense XL/365"),
             manager: EversenseCGMManager.self
+        ),
+        CgmPluginDescription(
+            pluginIdentifier: AccuChekCgmManager.pluginIdentifier,
+            localizedTitle: String(localized: "Accu Chek CGM"),
+            manager: AccuChekCgmManager.self
         )
     ]
 

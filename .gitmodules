@@ -47,3 +47,6 @@
 [submodule "MedtrumKit"]
 	path = MedtrumKit
 	url = https://github.com/bastiaanv/MedtrumKit
+[submodule "AccuChekKit"]
+	path = AccuChekKit
+	url = https://github.com/bastiaanv/AccuChekCGM

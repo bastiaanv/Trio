@@ -35,6 +35,9 @@
       location = "group:LoopKit/LoopKit.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:AccuChekKit/AccuChekKit.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:OmniKit/OmniKit.xcodeproj">
    </FileRef>
    <FileRef

@@ -259,12 +259,14 @@
 		3BD9687C2D8DDD4600899469 /* SlideButton in Frameworks */ = {isa = PBXBuildFile; productRef = 3BD9687B2D8DDD4600899469 /* SlideButton */; };
 		3BD9687F2D8DDD8800899469 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3BD9687E2D8DDD8800899469 /* CryptoSwift */; };
 		3BF85FE32E427312000D7351 /* IOBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF85FE12E427312000D7351 /* IOBService.swift */; };
+		3E28F2AB2EB5337F00FB9EEB /* ConnectIQ in Frameworks */ = {isa = PBXBuildFile; productRef = 3E28F2AA2EB5337F00FB9EEB /* ConnectIQ */; };
+		3E2C85932F2E88DF0060A478 /* AccuChekKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E2C85922F2E88DF0060A478 /* AccuChekKit.framework */; };
+		3E2C85942F2E88DF0060A478 /* AccuChekKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E2C85922F2E88DF0060A478 /* AccuChekKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E470F0D2DFA147500ACAF34 /* MedtrumKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E2F52DF72793005C358C /* MedtrumKit.framework */; };
 		3E470F0E2DFA147500ACAF34 /* MedtrumKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E2F52DF72793005C358C /* MedtrumKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E9D22DE2DF729A0005E4DAA /* EversenseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9D22DD2DF729A0005E4DAA /* EversenseKit.framework */; };
 		3E9D22DF2DF729A0005E4DAA /* EversenseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9D22DD2DF729A0005E4DAA /* EversenseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E9D23ED2DF72D07005E4DAA /* ConfigOverride.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3E9D23EC2DF72D07005E4DAA /* ConfigOverride.xcconfig */; };
-		3E28F2AB2EB5337F00FB9EEB /* ConnectIQ in Frameworks */ = {isa = PBXBuildFile; productRef = 3E28F2AA2EB5337F00FB9EEB /* ConnectIQ */; };
 		45252C95D220E796FDB3B022 /* ConfigEditorDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8A87AA037BD079BA3528BA /* ConfigEditorDataFlow.swift */; };
 		45717281F743594AA9D87191 /* ConfigEditorRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920DDB21E5D0EB813197500D /* ConfigEditorRootView.swift */; };
 		491D6FBD2D56741C00C49F67 /* TempTargetStored+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491D6FBC2D56741C00C49F67 /* TempTargetStored+CoreDataProperties.swift */; };
@@ -792,6 +794,7 @@
 				3B4BA7812D8DBD690069D5B8 /* OmniKitUI.framework in Embed Frameworks */,
 				3B4BA76F2D8DBD690069D5B8 /* DanaKit.framework in Embed Frameworks */,
 				3B4BA77D2D8DBD690069D5B8 /* OmniBLE.framework in Embed Frameworks */,
+				3E2C85942F2E88DF0060A478 /* AccuChekKit.framework in Embed Frameworks */,
 				3B4BA77F2D8DBD690069D5B8 /* OmniKit.framework in Embed Frameworks */,
 				3B4BA7852D8DBD690069D5B8 /* RileyLinkKit.framework in Embed Frameworks */,
 				3E9D22DF2DF729A0005E4DAA /* EversenseKit.framework in Embed Frameworks */,
@@ -1092,6 +1095,7 @@
 		3BDEA2DC60EDE0A3CA54DC73 /* TargetsEditorProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TargetsEditorProvider.swift; sourceTree = "<group>"; };
 		3BF768BD6264FF7D71D66767 /* NightscoutConfigProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NightscoutConfigProvider.swift; sourceTree = "<group>"; };
 		3BF85FE12E427312000D7351 /* IOBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOBService.swift; sourceTree = "<group>"; };
+		3E2C85922F2E88DF0060A478 /* AccuChekKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AccuChekKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E94E2F52DF72793005C358C /* MedtrumKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MedtrumKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E9D22DD2DF729A0005E4DAA /* EversenseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EversenseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E9D23EC2DF72D07005E4DAA /* ConfigOverride.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = ConfigOverride.xcconfig; path = ../ConfigOverride.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -1185,7 +1189,6 @@
 		BD0B2EF22C5998E600B3298F /* MealPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealPresetView.swift; sourceTree = "<group>"; };
 		BD10516C2DA986DC007C6D89 /* PulsingLogoAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsingLogoAnimation.swift; sourceTree = "<group>"; };
 		BD1661302B82ADAB00256551 /* CustomProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProgressView.swift; sourceTree = "<group>"; };
-		BD1CF8B72C1A4A8400CB930A /* ConfigOverride.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ConfigOverride.xcconfig; sourceTree = "<group>"; };
 		BD249D852D42FBE600412DEB /* GlucoseMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseMetricsView.swift; sourceTree = "<group>"; };
 		BD249D872D42FBFB00412DEB /* BolusStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BolusStatsView.swift; sourceTree = "<group>"; };
 		BD249D892D42FC0E00412DEB /* GlucosePercentileChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucosePercentileChart.swift; sourceTree = "<group>"; };
@@ -1582,6 +1585,7 @@
 				3B4BA7722D8DBD690069D5B8 /* G7SensorKitUI.framework in Frameworks */,
 				3B4BA7742D8DBD690069D5B8 /* LibreTransmitter.framework in Frameworks */,
 				3B4BA78C2D8DC0EC0069D5B8 /* ShareClientUI.framework in Frameworks */,
+				3E2C85932F2E88DF0060A478 /* AccuChekKit.framework in Frameworks */,
 				3B4BA77A2D8DBD690069D5B8 /* MinimedKitUI.framework in Frameworks */,
 				3E470F0D2DFA147500ACAF34 /* MedtrumKit.framework in Frameworks */,
 				3BD9687C2D8DDD4600899469 /* SlideButton in Frameworks */,
@@ -1594,7 +1598,6 @@
 				38E87401274F77E400975559 /* CoreNFC.framework in Frameworks */,
 				3B4BA78A2D8DC0EC0069D5B8 /* ShareClient.framework in Frameworks */,
 				3B4BA77E2D8DBD690069D5B8 /* OmniKit.framework in Frameworks */,
-				CE51DD1C2A01970900F163F7 /* ConnectIQ 2.xcframework in Frameworks */,
 				3E9D22DE2DF729A0005E4DAA /* EversenseKit.framework in Frameworks */,
 				3811DE1025C9D37700A708ED /* Swinject in Frameworks */,
 				3B4BA78E2D8DC0EC0069D5B8 /* TidepoolServiceKit.framework in Frameworks */,
@@ -2193,6 +2196,7 @@
 		3818AA48274C267000843DB3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E2C85922F2E88DF0060A478 /* AccuChekKit.framework */,
 				3E94E2F52DF72793005C358C /* MedtrumKit.framework */,
 				3E9D22DD2DF729A0005E4DAA /* EversenseKit.framework */,
 				3B4BA7882D8DC0EC0069D5B8 /* TidepoolServiceKit.framework */,
@@ -2321,9 +2325,6 @@
 				CE1F6DE62BAF1A180064EB8D /* BuildDetails.plist */,
 				38F3783A2613555C009DB701 /* Config.xcconfig */,
 				3E9D23EC2DF72D07005E4DAA /* ConfigOverride.xcconfig */,
-				388E595A25AD948C0019842D /* Trio */,
-				587A54C82BCDCE0F009D38E2 /* Model */,
-				38FCF3EE25E9028E0078B0D1 /* TrioTests */,
 				3818AA48274C267000843DB3 /* Frameworks */,
 				6B1A8D1C2B14D91600E76752 /* LiveActivity */,
 				587A54C82BCDCE0F009D38E2 /* Model */,
