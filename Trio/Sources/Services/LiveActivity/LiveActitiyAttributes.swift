@@ -26,6 +26,7 @@ struct LiveActivityAttributes: ActivityAttributes {
         let glucoseColorScheme: String
         let useDetailedViewIOS: Bool
         let useDetailedViewWatchOS: Bool
+        let useDetailedViewCarPlay: Bool
         let detailedViewState: ContentAdditionalState
 
         /// true for the first state that is set on the activity

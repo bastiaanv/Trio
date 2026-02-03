@@ -140,6 +140,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: false,
             useDetailedViewWatchOS: false,
+            useDetailedViewCarPlay: false,
             detailedViewState: detailedViewState,
             isInitialState: false
         )
@@ -158,6 +159,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: false,
             useDetailedViewWatchOS: false,
+            useDetailedViewCarPlay: false,
             detailedViewState: detailedViewState,
             isInitialState: false
         )
@@ -176,6 +178,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: false,
             useDetailedViewWatchOS: false,
+            useDetailedViewCarPlay: false,
             detailedViewState: detailedViewState,
             isInitialState: false
         )
@@ -195,6 +198,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: false,
             useDetailedViewWatchOS: false,
+            useDetailedViewCarPlay: false,
             detailedViewState: detailedViewState,
             isInitialState: false
         )
@@ -213,6 +217,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: false,
             useDetailedViewWatchOS: false,
+            useDetailedViewCarPlay: false,
             detailedViewState: detailedViewState,
             isInitialState: false
         )
@@ -231,6 +236,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: false,
             useDetailedViewWatchOS: false,
+            useDetailedViewCarPlay: false,
             detailedViewState: detailedViewState,
             isInitialState: false
         )
@@ -250,6 +256,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: true,
             useDetailedViewWatchOS: true,
+            useDetailedViewCarPlay: true,
             detailedViewState: detailedViewState,
             isInitialState: false
         )
@@ -270,6 +277,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: true,
             useDetailedViewWatchOS: true,
+            useDetailedViewCarPlay: true,
             detailedViewState: detailedViewState,
             isInitialState: false
         )
@@ -290,6 +298,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: true,
             useDetailedViewWatchOS: true,
+            useDetailedViewCarPlay: true,
             detailedViewState: detailedViewState,
             isInitialState: false
         )
@@ -311,6 +320,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: true,
             useDetailedViewWatchOS: true,
+            useDetailedViewCarPlay: true,
             detailedViewState: detailedViewState,
             isInitialState: false
         )
@@ -331,6 +341,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: true,
             useDetailedViewWatchOS: true,
+            useDetailedViewCarPlay: true,
             detailedViewState: detailedViewState,
             isInitialState: false
         )
@@ -351,6 +362,7 @@ private extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: "staticColor",
             useDetailedViewIOS: true,
             useDetailedViewWatchOS: true,
+            useDetailedViewCarPlay: true,
             detailedViewState: detailedViewState,
             isInitialState: false
         )

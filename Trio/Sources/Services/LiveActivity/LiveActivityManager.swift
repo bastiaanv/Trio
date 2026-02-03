@@ -290,6 +290,7 @@ final class LiveActivityData: ObservableObject {
                             glucoseColorScheme: settings.glucoseColorScheme.rawValue,
                             useDetailedViewIOS: false,
                             useDetailedViewWatchOS: false,
+                            useDetailedViewCarPlay: false,
                             detailedViewState: LiveActivityAttributes.ContentAdditionalState(
                                 chart: [],
                                 rotationDegrees: 0,

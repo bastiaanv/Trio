@@ -198,10 +198,20 @@ private struct LiveActivityWatchOS: EnvironmentKey {
     static let defaultValue = false
 }
 
+private struct LiveActivityCarPlay: EnvironmentKey {
+    // Value to add support for older iOS version (17 and lower) in order to keep using the ActivityFamily class
+    static let defaultValue = false
+}
+
 public extension EnvironmentValues {
     var isWatchOS: Bool {
         get { self[LiveActivityWatchOS.self] }
         set { self[LiveActivityWatchOS.self] = newValue }
+    }
+
+    var isCarPlay: Bool {
+        get { self[LiveActivityCarPlay.self] }
+        set { self[LiveActivityCarPlay.self] = newValue }
     }
 }
 
@@ -209,7 +219,12 @@ public extension EnvironmentValues {
     @Environment(\.activityFamily) var activityFamily
 
     func body(content: Content) -> some View {
-        content.environment(\.isWatchOS, activityFamily == .small)
+        GeometryReader { reader in
+            content
+                .environment(\.isWatchOS, activityFamily == .small && reader.size.width < 220)
+                .environment(\.isCarPlay, activityFamily == .small && reader.size.width >= 220)
+        }
+        .frame(height: activityFamily == .medium ? 160 : 80)
     }
 }
 

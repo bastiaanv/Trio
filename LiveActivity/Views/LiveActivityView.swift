@@ -6,6 +6,7 @@ import WidgetKit
 struct LiveActivityView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.isWatchOS) var isWatchOS
+    @Environment(\.isCarPlay) var isCarPlay
 
     var context: ActivityViewContext<LiveActivityAttributes>
 
@@ -32,7 +33,7 @@ struct LiveActivityView: View {
     }
 
     var body: some View {
-        if isWatchOS, context.state.useDetailedViewWatchOS {
+        if isWatchOS && context.state.useDetailedViewWatchOS || isCarPlay && context.state.useDetailedViewCarPlay {
             VStack {
                 LiveActivityBGLabelWatchView(context: context, glucoseColor: glucoseColor)
                 LiveActivityChartView(context: context, additionalState: context.state.detailedViewState)
@@ -40,7 +41,7 @@ struct LiveActivityView: View {
             }
             .addLiveActivityModifiers(isWatchOS: true)
 
-        } else if isWatchOS {
+        } else if isWatchOS || isCarPlay {
             HStack {
                 LiveActivityBGLabelLargeView(
                     context: context,

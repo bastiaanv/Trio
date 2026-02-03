@@ -127,6 +127,7 @@ extension LiveActivityAttributes.ContentState {
             glucoseColorScheme: settings.glucoseColorScheme.rawValue,
             useDetailedViewIOS: settings.lockScreenView == .detailed,
             useDetailedViewWatchOS: settings.smartStackView == .detailed,
+            useDetailedViewCarPlay: settings.carPlayView == .detailed,
             detailedViewState: detailedState,
             isInitialState: false
         )

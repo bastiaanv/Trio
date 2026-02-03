@@ -69,6 +69,7 @@ struct TrioSettings: JSON, Equatable {
     var useLiveActivity: Bool = false
     var lockScreenView: LockScreenView = .simple
     var smartStackView: LockScreenView = .simple
+    var carPlayView: LockScreenView = .simple
     var bolusShortcut: BolusShortcutLimit = .notAllowed
     var timeInRangeType: TimeInRangeType = .timeInTightRange
 }
@@ -295,6 +296,10 @@ extension TrioSettings: Decodable {
 
         if let smartStackView = try? container.decode(LockScreenView.self, forKey: .smartStackView) {
             settings.smartStackView = smartStackView
+        }
+
+        if let carPlayView = try? container.decode(LockScreenView.self, forKey: .carPlayView) {
+            settings.carPlayView = carPlayView
         }
 
         if let bolusShortcut = try? container.decode(BolusShortcutLimit.self, forKey: .bolusShortcut) {
