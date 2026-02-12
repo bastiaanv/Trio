@@ -264,8 +264,8 @@
 		3E2C85942F2E88DF0060A478 /* AccuChekKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E2C85922F2E88DF0060A478 /* AccuChekKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E470F0D2DFA147500ACAF34 /* MedtrumKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E2F52DF72793005C358C /* MedtrumKit.framework */; };
 		3E470F0E2DFA147500ACAF34 /* MedtrumKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E2F52DF72793005C358C /* MedtrumKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3E9D22DE2DF729A0005E4DAA /* EversenseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9D22DD2DF729A0005E4DAA /* EversenseKit.framework */; };
-		3E9D22DF2DF729A0005E4DAA /* EversenseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9D22DD2DF729A0005E4DAA /* EversenseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3E681DF92F31DDA50099B9C6 /* EversenseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E681DF82F31DDA50099B9C6 /* EversenseKit.framework */; };
+		3E681DFA2F31DDA50099B9C6 /* EversenseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E681DF82F31DDA50099B9C6 /* EversenseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E9D23ED2DF72D07005E4DAA /* ConfigOverride.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3E9D23EC2DF72D07005E4DAA /* ConfigOverride.xcconfig */; };
 		45252C95D220E796FDB3B022 /* ConfigEditorDataFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8A87AA037BD079BA3528BA /* ConfigEditorDataFlow.swift */; };
 		45717281F743594AA9D87191 /* ConfigEditorRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920DDB21E5D0EB813197500D /* ConfigEditorRootView.swift */; };
@@ -792,12 +792,12 @@
 				3B4BA7712D8DBD690069D5B8 /* G7SensorKit.framework in Embed Frameworks */,
 				CEB434FE28B90B8C00B70274 /* SwiftCharts in Embed Frameworks */,
 				3B4BA7812D8DBD690069D5B8 /* OmniKitUI.framework in Embed Frameworks */,
+				3E681DFA2F31DDA50099B9C6 /* EversenseKit.framework in Embed Frameworks */,
 				3B4BA76F2D8DBD690069D5B8 /* DanaKit.framework in Embed Frameworks */,
 				3B4BA77D2D8DBD690069D5B8 /* OmniBLE.framework in Embed Frameworks */,
 				3E2C85942F2E88DF0060A478 /* AccuChekKit.framework in Embed Frameworks */,
 				3B4BA77F2D8DBD690069D5B8 /* OmniKit.framework in Embed Frameworks */,
 				3B4BA7852D8DBD690069D5B8 /* RileyLinkKit.framework in Embed Frameworks */,
-				3E9D22DF2DF729A0005E4DAA /* EversenseKit.framework in Embed Frameworks */,
 				3B4BA7752D8DBD690069D5B8 /* LibreTransmitter.framework in Embed Frameworks */,
 				3B4BA7772D8DBD690069D5B8 /* LibreTransmitterUI.framework in Embed Frameworks */,
 				3B4BA77B2D8DBD690069D5B8 /* MinimedKitUI.framework in Embed Frameworks */,
@@ -1096,6 +1096,7 @@
 		3BF768BD6264FF7D71D66767 /* NightscoutConfigProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NightscoutConfigProvider.swift; sourceTree = "<group>"; };
 		3BF85FE12E427312000D7351 /* IOBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOBService.swift; sourceTree = "<group>"; };
 		3E2C85922F2E88DF0060A478 /* AccuChekKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AccuChekKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E681DF82F31DDA50099B9C6 /* EversenseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EversenseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E94E2F52DF72793005C358C /* MedtrumKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MedtrumKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E9D22DD2DF729A0005E4DAA /* EversenseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EversenseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E9D23EC2DF72D07005E4DAA /* ConfigOverride.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = ConfigOverride.xcconfig; path = ../ConfigOverride.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -1584,6 +1585,7 @@
 				CE95BF632BA771BE00DC3DE3 /* LoopTestingKit.framework in Frameworks */,
 				3B4BA7722D8DBD690069D5B8 /* G7SensorKitUI.framework in Frameworks */,
 				3B4BA7742D8DBD690069D5B8 /* LibreTransmitter.framework in Frameworks */,
+				3E681DF92F31DDA50099B9C6 /* EversenseKit.framework in Frameworks */,
 				3B4BA78C2D8DC0EC0069D5B8 /* ShareClientUI.framework in Frameworks */,
 				3E2C85932F2E88DF0060A478 /* AccuChekKit.framework in Frameworks */,
 				3B4BA77A2D8DBD690069D5B8 /* MinimedKitUI.framework in Frameworks */,
@@ -1598,7 +1600,6 @@
 				38E87401274F77E400975559 /* CoreNFC.framework in Frameworks */,
 				3B4BA78A2D8DC0EC0069D5B8 /* ShareClient.framework in Frameworks */,
 				3B4BA77E2D8DBD690069D5B8 /* OmniKit.framework in Frameworks */,
-				3E9D22DE2DF729A0005E4DAA /* EversenseKit.framework in Frameworks */,
 				3811DE1025C9D37700A708ED /* Swinject in Frameworks */,
 				3B4BA78E2D8DC0EC0069D5B8 /* TidepoolServiceKit.framework in Frameworks */,
 				B958F1B72BA0711600484851 /* MKRingProgressView in Frameworks */,
@@ -2196,6 +2197,7 @@
 		3818AA48274C267000843DB3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E681DF82F31DDA50099B9C6 /* EversenseKit.framework */,
 				3E2C85922F2E88DF0060A478 /* AccuChekKit.framework */,
 				3E94E2F52DF72793005C358C /* MedtrumKit.framework */,
 				3E9D22DD2DF729A0005E4DAA /* EversenseKit.framework */,

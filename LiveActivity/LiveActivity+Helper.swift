@@ -217,14 +217,20 @@ public extension EnvironmentValues {
 
 @available(iOS 18, *) struct LiveActivityWatchOSModifier: ViewModifier {
     @Environment(\.activityFamily) var activityFamily
+    @State var width: CGFloat = 0
 
     func body(content: Content) -> some View {
-        GeometryReader { reader in
-            content
-                .environment(\.isWatchOS, activityFamily == .small && reader.size.width < 220)
-                .environment(\.isCarPlay, activityFamily == .small && reader.size.width >= 220)
-        }
-        .frame(height: activityFamily == .medium ? 160 : 80)
+        content
+            .environment(\.isWatchOS, activityFamily == .small && width < 220)
+            .environment(\.isCarPlay, activityFamily == .small && width >= 220)
+            .overlay {
+                GeometryReader { reader in
+                    HStack {}
+                        .onAppear {
+                            width = reader.size.width
+                        }
+                }
+            }
     }
 }
 
