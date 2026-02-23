@@ -208901,6 +208901,9 @@
         }
       }
     },
+    "Show SMB in Chart" : {
+
+    },
     "Show X-Axis Grid Lines" : {
       "localizations" : {
         "bg" : {
