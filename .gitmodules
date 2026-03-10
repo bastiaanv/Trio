@@ -50,3 +50,6 @@
 [submodule "AccuChekKit"]
 	path = AccuChekKit
 	url = https://github.com/bastiaanv/AccuChekCGM
+[submodule "CareSenseKit"]
+	path = CareSenseKit
+	url = https://github.com/bastiaanv/CareSenseKit.git
