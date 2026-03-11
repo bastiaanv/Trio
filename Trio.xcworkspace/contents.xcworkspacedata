@@ -38,6 +38,9 @@
       location = "group:AccuChekKit/AccuChekKit.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:CareSenseKit/CareSenseKit.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:OmniKit/OmniKit.xcodeproj">
    </FileRef>
    <FileRef
