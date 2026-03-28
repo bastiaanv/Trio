@@ -214270,9 +214270,6 @@
         }
       }
     },
-    "Show SMB label in Chart" : {
-
-    },
     "Show X-Axis Grid Lines" : {
       "localizations" : {
         "bg" : {
@@ -233526,6 +233523,7 @@
       }
     },
     "The Detailed Watch/Carplay Screen Widget offers users a glucose chart as well as the current glucose, delta and the timestamp of current reading." : {
+      "extractionState" : "stale",
       "localizations" : {
         "bg" : {
           "stringUnit" : {
@@ -233642,6 +233640,9 @@
           }
         }
       }
+    },
+    "The Detailed WatchOS Screen Widget offers users a glucose chart as well as the current glucose, delta and the timestamp of current reading." : {
+
     },
     "The Duration of Insulin Action (DIA) defines how long your insulin continues to lower glucose readings after a dose." : {
       "localizations" : {
