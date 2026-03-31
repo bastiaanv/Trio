@@ -56,7 +56,7 @@ class BasePluginManager: Injectable, PluginManager {
         ),
         CgmPluginDescription(
             pluginIdentifier: CareSenseCGMManager.pluginIdentifier,
-            localizedTitle: String(localized: "CareSense Air"),
+            localizedTitle: String(localized: "CareSens Air"),
             manager: CareSenseCGMManager.self
         )
     ]
