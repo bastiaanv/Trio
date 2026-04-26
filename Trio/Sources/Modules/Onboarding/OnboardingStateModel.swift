@@ -121,6 +121,8 @@ extension Onboarding {
                         defaultOption = .omnipodDash
                     } else if pumpManager is OmnipodPumpManager {
                         defaultOption = .omnipodEros
+                    } else if pumpManager is MedtrumPumpManager {
+                        defaultOption = .medtrum
                     } else if pumpManager is DanaKitPumpManager {
                         defaultOption = .dana
                     } else if pumpManager is MinimedPumpManager {
