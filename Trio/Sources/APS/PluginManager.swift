@@ -51,7 +51,7 @@ class BasePluginManager: Injectable, PluginManager {
         ),
         CgmPluginDescription(
             pluginIdentifier: AccuChekCgmManager.pluginIdentifier,
-            localizedTitle: String(localized: "Accu Chek CGM"),
+            localizedTitle: String(localized: "Accu-Chek CGM"),
             manager: AccuChekCgmManager.self
         ),
         CgmPluginDescription(
