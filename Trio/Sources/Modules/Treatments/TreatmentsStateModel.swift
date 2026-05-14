@@ -162,7 +162,6 @@ extension Treatments {
             registerSubscribers()
             setupBolusStateConcurrently()
             subscribeToBolusProgress()
-            subscribeToLoopProgress()
         }
 
         deinit {
@@ -229,15 +228,6 @@ extension Treatments {
                 await apsManager.cancelBolus(nil)
                 try? await apsManager.determineBasalSync()
             }
-        }
-
-        private func subscribeToLoopProgress() {
-            loopProgressCancellable = apsManager.isLooping
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] value in
-                    guard let self = self else { return }
-                    self.isLoopInProgress = value
-                }
         }
 
         // MARK: - Basal

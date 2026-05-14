@@ -643,11 +643,6 @@ extension Treatments {
 
             // Note: when a pump bolus is in progress, the row is rendered by `bolusInProgressView`
             // (Home-style card), so this label's in-progress branch is intentionally absent.
-
-            if state.isLoopInProgress {
-                return Text("Loop In Progress...")
-            }
-
             switch (hasInsulin, hasCarbs, hasFatOrProtein) {
             case (true, true, true):
                 return Text("Log Meal and \(bolusString)")
@@ -693,7 +688,7 @@ extension Treatments {
         }
 
         private var disableTaskButton: Bool {
-            isInbolusState || state.addButtonPressed || limitExceeded || state.isLoopInProgress
+            isInbolusState || state.addButtonPressed || limitExceeded
         }
 
         private var isInbolusState: Bool {
