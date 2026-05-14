@@ -26,6 +26,9 @@
       location = "group:CGMBLEKit/CGMBLEKit.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:AccuChekKit/AccuChekKit.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:dexcom-share-client-swift/ShareClient.xcodeproj">
    </FileRef>
    <FileRef

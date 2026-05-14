@@ -34,3 +34,6 @@
 [submodule "MedtrumKit"]
 	path = MedtrumKit
 	url = https://github.com/loopandlearn/MedtrumKit
+[submodule "AccuChekKit"]
+	path = AccuChekKit
+	url = https://github.com/bastiaanv/AccuChekKit
