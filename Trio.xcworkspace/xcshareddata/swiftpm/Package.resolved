@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leif-ibsen/BigInt",
       "state" : {
-        "revision" : "8c6f93aa37504b7b1ba3954335b5548a19fbbd82",
-        "version" : "1.22.0"
+        "revision" : "c2f49bee454760e433bafff17bfdc5b96f75d7c8",
+        "version" : "1.23.0"
       }
     },
     {
