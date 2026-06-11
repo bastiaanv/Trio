@@ -157,6 +157,7 @@ extension LiveActivitySettings {
             .onAppear(perform: configureView)
             .navigationTitle("Live Activity")
             .navigationBarTitleDisplayMode(.automatic)
+            .settingsHighlightScroll()
         }
 
         @ViewBuilder func LiveActivityStyle(
