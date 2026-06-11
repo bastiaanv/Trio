@@ -1,3 +1,4 @@
+import AccuChekKit
 import CGMBLEKit
 import Combine
 import Foundation
@@ -248,6 +249,10 @@ extension PluginSource: CGMManagerDelegate {
                 sensorStartDate = latestReading?.sessionStartDate
                 sensorTransmitterID = latestReading?.transmitterID
             } else if let cgmTransmitterManager = cgmManager as? G7CGMManager {
+                sensorActivatedAt = cgmTransmitterManager.sensorActivatedAt
+                sensorStartDate = cgmTransmitterManager.sensorActivatedAt
+                sensorTransmitterID = cgmTransmitterManager.sensorName
+            } else if let cgmTransmitterManager = cgmManager as? AccuChekCgmManager {
                 sensorActivatedAt = cgmTransmitterManager.sensorActivatedAt
                 sensorStartDate = cgmTransmitterManager.sensorActivatedAt
                 sensorTransmitterID = cgmTransmitterManager.sensorName
