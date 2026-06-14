@@ -8,8 +8,6 @@ import LoopKitUI
 import MedtrumKit
 import MinimedKit
 import MockKit
-import OmniBLE
-import OmniKit
 import OmnipodKit
 import ShareClient
 import SwiftDate
@@ -22,7 +20,7 @@ protocol DeviceDataManager: GlucoseSource {
     var loopInProgress: Bool { get set }
     var pumpDisplayState: CurrentValueSubject<PumpDisplayState?, Never> { get }
     var recommendsLoop: PassthroughSubject<Void, Never> { get }
-    var bolusTrigger: PassthroughSubject<Bool, Never> { get }
+    var bolusTrigger: PassthroughSubject<BolusStatus, Never> { get }
     var manualTempBasal: PassthroughSubject<Bool, Never> { get }
     var scheduledBasal: PassthroughSubject<Bool?, Never> { get }
     var suspended: PassthroughSubject<Bool, Never> { get }
@@ -38,8 +36,6 @@ protocol DeviceDataManager: GlucoseSource {
 
 private let staticPumpManagers: [PumpManagerUI.Type] = [
     MinimedPumpManager.self,
-    OmnipodPumpManager.self,
-    OmniBLEPumpManager.self,
     OmniPumpManager.self,
     DanaKitPumpManager.self,
     MedtrumPumpManager.self,
@@ -48,8 +44,6 @@ private let staticPumpManagers: [PumpManagerUI.Type] = [
 
 private let staticPumpManagersByIdentifier: [String: PumpManagerUI.Type] = [
     MinimedPumpManager.pluginIdentifier: MinimedPumpManager.self,
-    OmnipodPumpManager.pluginIdentifier: OmnipodPumpManager.self,
-    OmniBLEPumpManager.pluginIdentifier: OmniBLEPumpManager.self,
     OmniPumpManager.pluginIdentifier: OmniPumpManager.self,
     DanaKitPumpManager.pluginIdentifier: DanaKitPumpManager.self,
     MedtrumPumpManager.pluginIdentifier: MedtrumPumpManager.self,
@@ -73,7 +67,7 @@ final class BaseDeviceDataManager: DeviceDataManager, Injectable {
         .distantPast
 
     let recommendsLoop = PassthroughSubject<Void, Never>()
-    let bolusTrigger = PassthroughSubject<Bool, Never>()
+    let bolusTrigger = PassthroughSubject<BolusStatus, Never>()
     let errorSubject = PassthroughSubject<Error, Never>()
     let pumpNewStatus = PassthroughSubject<Void, Never>()
     let manualTempBasal = PassthroughSubject<Bool, Never>()
@@ -112,22 +106,6 @@ final class BaseDeviceDataManager: DeviceDataManager, Injectable {
                     .bolusIncrement = bolusIncrement > 0 ? bolusIncrement : 0.1
                 storage.save(modifiedPreferences, as: OpenAPS.Settings.preferences)
 
-                if let omnipod = pumpManager as? OmnipodPumpManager {
-                    pumpActivatedAtDate.send(nil)
-                    guard let endTime = omnipod.state.podState?.expiresAt else {
-                        pumpExpiresAtDate.send(nil)
-                        return
-                    }
-                    pumpExpiresAtDate.send(endTime)
-                }
-                if let omnipodBLE = pumpManager as? OmniBLEPumpManager {
-                    pumpActivatedAtDate.send(nil)
-                    guard let endTime = omnipodBLE.state.podState?.expiresAt else {
-                        pumpExpiresAtDate.send(nil)
-                        return
-                    }
-                    pumpExpiresAtDate.send(endTime)
-                }
                 if let medtrumPump = pumpManager as? MedtrumPumpManager {
                     // Medtrum's state.patchExpiresAt is actually lifespan + grace
                     // keeping this in line with omnipod, we will use just the lifetime
@@ -464,10 +442,13 @@ extension BaseDeviceDataManager: PumpManagerDelegate {
         debug(.deviceManager, "New pump status Bolus: \(status.bolusState)")
         debug(.deviceManager, "New pump status Basal: \(String(describing: status.basalDeliveryState))")
 
-        if case .inProgress = status.bolusState {
-            bolusTrigger.send(true)
-        } else {
-            bolusTrigger.send(false)
+        switch status.bolusState {
+        case .initiating:
+            bolusTrigger.send(.initiating)
+        case let .inProgress(dose):
+            bolusTrigger.send(.inProcess)
+        default:
+            bolusTrigger.send(.noBolus)
         }
 
         switch status.basalDeliveryState {
@@ -488,73 +469,6 @@ extension BaseDeviceDataManager: PumpManagerDelegate {
 
         if status.insulinType != oldStatus.insulinType {
             settingsManager.updateInsulinCurve(status.insulinType)
-        }
-
-        if let omnipod = pumpManager as? OmnipodPumpManager {
-            let reservoirVal = omnipod.state.podState?.lastInsulinMeasurements?.reservoirLevel ?? 0xDEAD_BEEF
-            // TODO: find the value Pod.maximumReservoirReading
-            let reservoir = Decimal(reservoirVal) > 50.0 ? 0xDEAD_BEEF : reservoirVal
-
-            storage.save(Decimal(reservoir), as: OpenAPS.Monitor.reservoir)
-            broadcaster.notify(PumpReservoirObserver.self, on: processQueue) {
-                $0.pumpReservoirDidChange(Decimal(reservoir))
-            }
-
-            if let tempBasal = omnipod.state.podState?.unfinalizedTempBasal, !tempBasal.isFinished(),
-               !tempBasal.automatic
-            {
-                // the manual basal temp is launch - block every thing
-                debug(.deviceManager, "manual temp basal")
-                manualTempBasal.send(true)
-            } else {
-                // no more manual Temp Basal !
-                manualTempBasal.send(false)
-            }
-
-            pumpActivatedAtDate.send(nil)
-            guard let endTime = omnipod.state.podState?.expiresAt else {
-                pumpExpiresAtDate.send(nil)
-                return
-            }
-            pumpExpiresAtDate.send(endTime)
-
-            if let startTime = omnipod.state.podState?.activatedAt {
-                storage.save(startTime, as: OpenAPS.Monitor.podAge)
-            }
-        }
-
-        if let omnipodBLE = pumpManager as? OmniBLEPumpManager {
-            let reservoirVal = omnipodBLE.state.podState?.lastInsulinMeasurements?.reservoirLevel ?? 0xDEAD_BEEF
-            // TODO: find the value Pod.maximumReservoirReading
-            let reservoir = Decimal(reservoirVal) > 50.0 ? 0xDEAD_BEEF : reservoirVal
-
-            storage.save(Decimal(reservoir), as: OpenAPS.Monitor.reservoir)
-            broadcaster.notify(PumpReservoirObserver.self, on: processQueue) {
-                $0.pumpReservoirDidChange(Decimal(reservoir))
-            }
-
-            // manual temp basal on
-            if let tempBasal = omnipodBLE.state.podState?.unfinalizedTempBasal, !tempBasal.isFinished(),
-               !tempBasal.automatic
-            {
-                // the manual basal temp is launch - block every thing
-                debug(.deviceManager, "manual temp basal")
-                manualTempBasal.send(true)
-            } else {
-                // no more manual Temp Basal !
-                manualTempBasal.send(false)
-            }
-
-            pumpActivatedAtDate.send(nil)
-            guard let endTime = omnipodBLE.state.podState?.expiresAt else {
-                pumpExpiresAtDate.send(nil)
-                return
-            }
-            pumpExpiresAtDate.send(endTime)
-
-            if let startTime = omnipodBLE.state.podState?.activatedAt {
-                storage.save(startTime, as: OpenAPS.Monitor.podAge)
-            }
         }
 
         if let medtrumPump = pumpManager as? MedtrumPumpManager {
