@@ -6,6 +6,7 @@ let cgmOptions: [CGMOption] = [
     CGMOption(name: "Dexcom Share", predicate: { $0.type == .plugin && $0.displayName.contains("Dexcom Share") }),
     CGMOption(name: "Eversense", predicate: { $0.type == .plugin && $0.displayName == "Eversense" }),
     CGMOption(name: "FreeStyle Libre", predicate: { $0.type == .plugin && $0.displayName == "FreeStyle Libre" }),
+    CGMOption(name: "Eversense", predicate: { $0.type == .plugin && $0.displayName == "Eversense" }),
     CGMOption(
         name: "FreeStyle Libre Demo",
         predicate: { $0.type == .plugin && $0.displayName == "FreeStyle Libre Demo" }
