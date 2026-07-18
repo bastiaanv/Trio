@@ -1,4 +1,5 @@
 import AccuChekKit
+import CareSensKit
 import CGMBLEKit
 import EversenseKit
 import Foundation
@@ -52,6 +53,11 @@ class BasePluginManager: Injectable, PluginManager {
             pluginIdentifier: AccuChekCgmManager.pluginIdentifier,
             localizedTitle: String(localized: "Accu-Chek"),
             manager: AccuChekCgmManager.self
+        ),
+        CgmPluginDescription(
+            pluginIdentifier: CareSensCGMManager.pluginIdentifier,
+            localizedTitle: String(localized: "CareSens Air"),
+            manager: CareSensCGMManager.self
         )
     ]
 

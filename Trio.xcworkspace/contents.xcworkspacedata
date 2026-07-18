@@ -32,6 +32,9 @@
       location = "group:AccuChekKit/AccuChekKit.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:CareSensKit/CareSensKit.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:dexcom-share-client-swift/ShareClient.xcodeproj">
    </FileRef>
    <FileRef

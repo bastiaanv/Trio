@@ -37,3 +37,6 @@
 [submodule "AccuChekKit"]
 	path = AccuChekKit
 	url = https://github.com/loopandlearn/AccuChekCGM
+[submodule "CareSensKit"]
+	path = CareSensKit
+	url = https://github.com/bastiaanv/CareSensKit
