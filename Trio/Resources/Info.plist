@@ -2,10 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AppGroupID</key>
-	<string>$(APP_GROUP_ID)</string>
 	<key>AppDevVersion</key>
 	<string>$(APP_DEV_VERSION)</string>
+	<key>AppGroupID</key>
+	<string>$(APP_GROUP_ID)</string>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>$(PRODUCT_BUNDLE_IDENTIFIER).background-task.critical-event-log</string>
@@ -77,6 +77,8 @@
 	<string>To create events with glucose values, so they can be viewed on Apple Watch and CarPlay</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Calendar is used to create new glucose events.</string>
+	<key>NSCameraUsageDescription</key>
+	<string></string>
 	<key>NSContactsUsageDescription</key>
 	<string>Contact is used to create a Apple Watch complication</string>
 	<key>NSFaceIDUsageDescription</key>
