@@ -31,12 +31,12 @@
 [submodule "OmnipodKit"]
 	path = OmnipodKit
 	url = https://github.com/loopandlearn/OmnipodKit
+[submodule "AccuChekKit"]
+	path = AccuChekKit
+	url = https://github.com/loopandlearn/AccuChekKit
 [submodule "EversenseKit"]
 	path = EversenseKit
 	url = https://github.com/loopandlearn/EversenseKit
-[submodule "AccuChekKit"]
-	path = AccuChekKit
-	url = https://github.com/loopandlearn/AccuChekCGM
 [submodule "CareSensKit"]
 	path = CareSensKit
 	url = https://github.com/bastiaanv/CareSensKit
