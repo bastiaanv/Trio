@@ -9,6 +9,7 @@ public extension OverrideRunStored {
     @NSManaged var endDate: Date?
     @NSManaged var id: UUID?
     @NSManaged var isUploadedToNS: Bool
+    @NSManaged var isUploadedToNocturne: Bool
     @NSManaged var name: String?
     @NSManaged var startDate: Date?
     @NSManaged var target: NSDecimalNumber?

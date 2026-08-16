@@ -34,6 +34,16 @@ extension NSPredicate {
             false as NSNumber
         )
     }
+    
+    static var carbsNotYetUploadedToNocturne: NSPredicate {
+        let date = Date.oneDayAgo
+        return NSPredicate(
+            format: "date >= %@ AND isUploadedToNocturne == %@ AND isFPU == %@ AND carbs > 0",
+            date as NSDate,
+            false as NSNumber,
+            false as NSNumber
+        )
+    }
 
     static var carbsNotYetUploadedToHealth: NSPredicate {
         let date = Date.oneDayAgo
@@ -54,6 +64,16 @@ extension NSPredicate {
     }
 
     static var fpusNotYetUploadedToNightscout: NSPredicate {
+        let date = Date.oneDayAgo
+        return NSPredicate(
+            format: "date >= %@ AND isUploadedToNS == %@ AND isFPU == %@",
+            date as NSDate,
+            false as NSNumber,
+            true as NSNumber
+        )
+    }
+    
+    static var fpusNotYetUploadedToNocturne: NSPredicate {
         let date = Date.oneDayAgo
         return NSPredicate(
             format: "date >= %@ AND isUploadedToNS == %@ AND isFPU == %@",

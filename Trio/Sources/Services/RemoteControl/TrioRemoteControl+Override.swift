@@ -35,6 +35,7 @@ extension TrioRemoteControl {
         preset.enabled = true
         preset.date = Date()
         preset.isUploadedToNS = false
+        preset.isUploadedToNocturne = false
         await disableAllActiveOverrides(except: preset.objectID)
         do {
             if viewContext.hasChanges {
@@ -70,8 +71,10 @@ extension TrioRemoteControl {
                         .target = NSDecimalNumber(decimal: self.overrideStorage.calculateTarget(override: canceledOverride))
                     newOverrideRunStored.override = canceledOverride
                     newOverrideRunStored.isUploadedToNS = false
+                    newOverrideRunStored.isUploadedToNocturne = false
                     canceledOverride.enabled = false
                     canceledOverride.isUploadedToNS = false
+                    canceledOverride.isUploadedToNocturne = false
                 }
                 if self.viewContext.hasChanges {
                     try self.viewContext.save()

@@ -240,7 +240,8 @@ final class TelemetryClient: Injectable {
 
         // Apple Health: report `enabled = true` as soon as *any* per-type write
         // permission is granted, with the full per-type breakdown in
-        // `appleHealthWrites`.
+        // `appleHealthWrites`. Also include read-only permissions for steps,
+        // heart rate, and sleep data.
         let appleHealthSampleTypes: [(name: String, type: HKObjectType?)] = [
             ("glucose", AppleHealthConfig.healthBGObject),
             ("insulin", AppleHealthConfig.healthInsulinObject),
@@ -256,6 +257,22 @@ final class TelemetryClient: Injectable {
         payload["appleHealthEnabled"] = writePermissions.values.contains(true)
         if !writePermissions.isEmpty {
             payload["appleHealthWrites"] = writePermissions
+        }
+
+        // Apple Health read permissions (read-only): steps, heart rate, sleep
+        let appleHealthReadTypes: [(name: String, type: HKObjectType?)] = [
+            ("steps", AppleHealthConfig.healthStepsObject),
+            ("heartRate", AppleHealthConfig.healthHeartRateObject)
+//            ("sleep", "sleep")
+        ]
+        var readPermissions: [String: Bool] = [:]
+        for (name, type) in appleHealthReadTypes {
+            let granted = type.flatMap { healthKitManager?.checkReadPermission(objectTypeToHealthStore: $0) } ?? false
+            readPermissions[name] = granted
+        }
+        payload["appleHealthReadEnabled"] = readPermissions.values.contains(true)
+        if !readPermissions.isEmpty {
+            payload["appleHealthReads"] = readPermissions
         }
 
         if let settings = settings {

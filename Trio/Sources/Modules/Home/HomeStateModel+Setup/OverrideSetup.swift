@@ -76,6 +76,7 @@ extension Home.StateModel {
         newOverrideRunStored.target = NSDecimalNumber(decimal: overrideStorage.calculateTarget(override: object))
         newOverrideRunStored.override = object
         newOverrideRunStored.isUploadedToNS = false
+        newOverrideRunStored.isUploadedToNocturne = false
 
         do {
             guard viewContext.hasChanges else { return }

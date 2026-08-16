@@ -268,6 +268,7 @@ extension Adjustments.StateModel {
             tempTargetToEnact.enabled = true
             tempTargetToEnact.date = Date()
             tempTargetToEnact.isUploadedToNS = false
+            tempTargetToEnact.isUploadedToNocturne = false
             isTempTargetEnabled = true
             if viewContext.hasChanges {
                 try viewContext.save()
@@ -323,6 +324,7 @@ extension Adjustments.StateModel {
                         newTempTargetRunStored.target = canceledTempTarget.target ?? 0
                         newTempTargetRunStored.tempTarget = canceledTempTarget
                         newTempTargetRunStored.isUploadedToNS = false
+                        newTempTargetRunStored.isUploadedToNocturne = false
                     }
                 }
 

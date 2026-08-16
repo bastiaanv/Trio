@@ -8,6 +8,7 @@ public extension PumpEventStored {
 
     @NSManaged var id: String?
     @NSManaged var isUploadedToNS: Bool
+    @NSManaged var isUploadedToNocturne: Bool
     @NSManaged var isUploadedToHealth: Bool
     @NSManaged var isUploadedToTidepool: Bool
     @NSManaged var note: String?

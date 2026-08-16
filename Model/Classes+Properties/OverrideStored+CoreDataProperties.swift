@@ -18,6 +18,7 @@ public extension OverrideStored {
     @NSManaged var isfAndCr: Bool
     @NSManaged var isPreset: Bool
     @NSManaged var isUploadedToNS: Bool
+    @NSManaged var isUploadedToNocturne: Bool
     @NSManaged var name: String?
     @NSManaged var orderPosition: Int16
     @NSManaged var percentage: Double

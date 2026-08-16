@@ -7,15 +7,23 @@ import LoopKitUI
 import Swinject
 
 protocol HealthKitManager {
-    /// Check all needed permissions
+    /// Check all write permissions
     /// Return false if one or more permissions are deny or not choosen
     var hasGrantedFullWritePermissions: Bool { get }
+    /// Check all read permissions
+    /// Return false if one or more permissions are deny or not choosen
+    var hasGrantedReadPermissions: Bool { get }
     /// Check availability to save data of BG type to Health store
     func hasGlucoseWritePermission() -> Bool
+
     /// Requests user to give permissions on using HealthKit
     func requestPermission() async throws -> Bool
+    /// Requests read-only permissions for steps, heart rate, and sleep
+    func requestReadPermissions() async throws -> Bool
     /// Checks whether permissions are granted for Trio to write to Health
     func checkWriteToHealthPermissions(objectTypeToHealthStore: HKObjectType) -> Bool
+    /// Checks whether read permissions are granted for a specific HealthKit type
+    func checkReadPermission(objectTypeToHealthStore: HKObjectType) -> Bool
     /// Save blood glucose to Health store
     func uploadGlucose() async
     /// Save carbs to Health store
@@ -28,22 +36,40 @@ protocol HealthKitManager {
     func deleteMealData(byID id: String, sampleType: HKSampleType) async
     /// delete insulin with syncID
     func deleteInsulin(syncID: String) async
+    /// Fetch steps for a given timeframe
+    func loadSteps(from start: Date, to end: Date) async -> [NocturneUpsertStepCount]
+    /// Fetch heart rate for a given timeframe
+    func loadHeartRate(from start: Date, to end: Date) async -> [NocturneUpsertHeartRate]
+    /// Fetch sleep data for a given timeframe
+//    func loadSleep(from start: Date, to end: Date) async -> [HKSample]?
 }
 
 public enum AppleHealthConfig {
-    // unwraped HKObjects
+    // unwraped HKObjects for write permissions
     static var writePermissions: Set<HKSampleType> {
         Set([healthBGObject, healthCarbObject, healthFatObject, healthProteinObject, healthInsulinObject].compactMap { $0 }) }
 
+    // HKObjects for read permissions (steps, heart rate, sleep) - read-only
+    static var readPermissions: Set<HKObjectType> {
+        Set([healthStepsObject, healthHeartRateObject].compactMap { $0 })
+    }
+
     // link to object in HealthKit
+    // Write permissions
     static let healthBGObject = HKObjectType.quantityType(forIdentifier: .bloodGlucose)
     static let healthCarbObject = HKObjectType.quantityType(forIdentifier: .dietaryCarbohydrates)
     static let healthFatObject = HKObjectType.quantityType(forIdentifier: .dietaryFatTotal)
     static let healthProteinObject = HKObjectType.quantityType(forIdentifier: .dietaryProtein)
     static let healthInsulinObject = HKObjectType.quantityType(forIdentifier: .insulinDelivery)
 
+    // Read permissions (read-only)
+    static let healthStepsObject = HKObjectType.quantityType(forIdentifier: .stepCount)
+    static let healthHeartRateObject = HKObjectType.quantityType(forIdentifier: .heartRate)
+//    static let healthSleepObject = HKObjectType.categoryType(forIdentifier: .sleepChanges)
+
     // MetaDataKey of Trio data in HealthStore
     static let TrioInsulinType = "Trio Insulin Type"
+    static let NocturneDataSource = "com.apple.health"
 }
 
 final class BaseHealthKitManager: HealthKitManager, Injectable {
@@ -157,10 +183,24 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
         healthKitStore.authorizationStatus(for: objectTypeToHealthStore) == .sharingAuthorized
     }
 
+    func checkReadPermission(objectTypeToHealthStore: HKObjectType) -> Bool {
+        healthKitStore.authorizationStatus(for: objectTypeToHealthStore) == .sharingDenied
+    }
+
     var hasGrantedFullWritePermissions: Bool {
         Set(AppleHealthConfig.writePermissions.map { healthKitStore.authorizationStatus(for: $0) })
             .intersection([.sharingDenied, .notDetermined])
             .isEmpty
+    }
+
+    var hasGrantedFullReadPermissions: Bool {
+        Set(AppleHealthConfig.readPermissions.map { healthKitStore.authorizationStatus(for: $0) })
+            .intersection([.sharingAuthorized, .notDetermined])
+            .isEmpty
+    }
+
+    var hasGrantedReadPermissions: Bool {
+        hasGrantedFullReadPermissions
     }
 
     func hasGlucoseWritePermission() -> Bool {
@@ -176,6 +216,25 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
             healthKitStore.requestAuthorization(
                 toShare: AppleHealthConfig.writePermissions,
                 read: nil
+            ) { status, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: status)
+                }
+            }
+        }
+    }
+
+    func requestReadPermissions() async throws -> Bool {
+        guard isAvailableOnCurrentDevice else {
+            throw HKError.notAvailableOnCurrentDevice
+        }
+
+        return try await withCheckedThrowingContinuation { continuation in
+            healthKitStore.requestAuthorization(
+                toShare: [],
+                read: AppleHealthConfig.readPermissions
             ) { status, error in
                 if let error = error {
                     continuation.resume(throwing: error)
@@ -717,6 +776,182 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
             }
         }
     }
+
+    // MARK: - Health Data Fetching (Read-Only)
+
+    /// Fetches step count data for the specified timeframe
+    func loadSteps(from start: Date, to end: Date) async -> [NocturneUpsertStepCount] {
+        await withCheckedContinuation { continuation in
+            guard let stepType = AppleHealthConfig.healthStepsObject else {
+                debug(.service, "Steps type not available")
+                continuation.resume(returning: [])
+                return
+            }
+
+            guard checkReadPermission(objectTypeToHealthStore: stepType) else {
+                debug(.service, "Steps read permission not granted")
+                continuation.resume(returning: [])
+                return
+            }
+
+            let predicate = HKQuery.predicateForSamples(
+                withStart: start,
+                end: end,
+                options: [.strictStartDate, .strictEndDate]
+            )
+
+            let query = HKStatisticsCollectionQuery(
+                quantityType: stepType,
+                quantitySamplePredicate: predicate,
+                options: .cumulativeSum,
+                anchorDate: start,
+                intervalComponents: DateComponents(minute: 1)
+            )
+
+            query.initialResultsHandler = { _, samples, error in
+                if let error = error {
+                    debug(.service, "Failed to load steps: \(error)")
+                    continuation.resume(returning: [])
+                    return
+                }
+
+                guard let collection = samples else {
+                    continuation.resume(returning: [])
+                    return
+                }
+
+                var records: [NocturneUpsertStepCount] = []
+                collection.enumerateStatistics(from: start, to: end) { stats, _ in
+                    guard let sum = stats.sumQuantity(), sum.doubleValue(for: .count()) > 0 else {
+                        return
+                    }
+
+                    records.append(NocturneUpsertStepCount(
+                        metric: Int(sum.doubleValue(for: .count())),
+                        source: 1,
+                        date: stats.startDate,
+                        timestamp: "",
+                        utcOffset: nil,
+                        device: nil,
+                        app: nil,
+                        dataSource: AppleHealthConfig.NocturneDataSource,
+                        syncIdentifier: nil
+                    ))
+                }
+
+                continuation.resume(returning: records)
+            }
+
+            healthKitStore.execute(query)
+        }
+    }
+
+    /// Fetches heart rate data for the specified timeframe
+    func loadHeartRate(from start: Date, to end: Date) async -> [NocturneUpsertHeartRate] {
+        await withCheckedContinuation { continuation in
+            guard let heartRateType = AppleHealthConfig.healthHeartRateObject else {
+                debug(.service, "Heart rate type not available")
+                continuation.resume(returning: [])
+                return
+            }
+
+            guard checkReadPermission(objectTypeToHealthStore: heartRateType) else {
+                debug(.service, "Heart rate read permission not granted")
+                continuation.resume(returning: [])
+                return
+            }
+
+            let predicate = HKQuery.predicateForSamples(
+                withStart: start,
+                end: end,
+                options: .strictStartDate
+            )
+
+            let query = HKSampleQuery(
+                sampleType: heartRateType,
+                predicate: predicate,
+                limit: HKObjectQueryNoLimit,
+                sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)]
+            ) { _, samples, error in
+                if let error = error {
+                    debug(.service, "Failed to load heart rates: \(error)")
+                    continuation.resume(returning: [])
+                    return
+                }
+
+                guard let samples = samples as? [HKQuantitySample], !samples.isEmpty else {
+                    debug(.service, "No samples loaded")
+                    continuation.resume(returning: [])
+                    return
+                }
+
+                let beatsPerMinute = HKUnit.count().unitDivided(by: .minute())
+
+                let records: [NocturneUpsertHeartRate] = samples.map { sample in
+                    return NocturneUpsertHeartRate(
+                        accuracy: nil,
+                        bpm: Int(sample.quantity.doubleValue(for: beatsPerMinute)),
+                        date: sample.startDate,
+                        timestamp: "",
+                        utcOffset: nil,
+                        device: nil,
+                        app: nil,
+                        dataSource: AppleHealthConfig.NocturneDataSource,
+                        syncIdentifier: nil
+                    )
+                }
+
+                continuation.resume(returning: records)
+            }
+
+            healthKitStore.execute(query)
+        }
+    }
+
+    /// Fetches sleep data for the specified timeframe
+//    func loadSleep(from start: Date, to end: Date) async -> [HKSample]? {
+//        return await withCheckedContinuation { continuation in
+//            guard let sleepType = AppleHealthConfig.sleepObject else {
+//                debug(.service, "Sleep type not available")
+//                continuation.resume(returning: nil)
+//                return
+//            }
+//
+//            guard checkReadPermission(sleepType) else {
+//                debug(.service, "Sleep read permission not granted")
+//                continuation.resume(returning: nil)
+//                return
+//            }
+//
+//            let predicate = HKQuery.predicateForSamples(
+//                withStart: start,
+//                end: end,
+//                options: .strictStartEndBoundaries
+//            )
+//
+//            healthKitStore.loadObjects(ofType: sleepType, predicate: predicate) { samples, error in
+//                if let error = error {
+//                    debug(.service, "Failed to load sleep data: \(error)")
+//                    continuation.resume(returning: nil)
+//                } else if let fetchedSamples = samples as? [HKSample] {
+//                    let totalDuration = fetchedSamples.map({
+//                        $0 as? HKCategorySample ?? nil
+//                    }).compactMap { sample in
+//                        if let sample = sample {
+//                            let duration = sample.endDate.timeIntervalSince(sample.startDate)
+//                            return duration > 0 ? duration : nil
+//                        }
+//                        return nil
+//                    }.reduce(0, +)
+//                    debug(.service, "Fetched sleep: \(fetchedSamples.count) samples, total: \(totalDuration) seconds")
+//                    continuation.resume(returning: fetchedSamples)
+//                } else {
+//                    debug(.service, "No sleep samples found for timeframe")
+//                    continuation.resume(returning: nil)
+//                }
+//            }
+//        }
+//    }
 }
 
 enum HealthKitPermissionRequestStatus {

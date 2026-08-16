@@ -361,6 +361,7 @@ extension BloodGlucose {
         glucoseEntry.direction = direction?.rawValue
         glucoseEntry.isManual = type == "Manual"
         glucoseEntry.isUploadedToNS = true
+        glucoseEntry.isUploadedToNocturne = true
         glucoseEntry.isUploadedToHealth = true
         glucoseEntry.isUploadedToTidepool = true
     }
@@ -374,6 +375,7 @@ extension PumpHistoryEvent {
         pumpEntry.timestamp = timestamp
         pumpEntry.type = type.rawValue
         pumpEntry.isUploadedToNS = true
+        pumpEntry.isUploadedToNocturne = true
         pumpEntry.isUploadedToHealth = true
         pumpEntry.isUploadedToTidepool = true
 
@@ -681,6 +683,7 @@ extension Determination: Codable {
         newOrefDetermination.smbToDeliver = units.map { NSDecimalNumber(decimal: $0) }
         newOrefDetermination.carbsRequired = Int16(Int(carbsReq ?? 0))
         newOrefDetermination.isUploadedToNS = true
+        newOrefDetermination.isUploadedToNocturne = true
 
         if let predictions = predictions {
             ["iob": predictions.iob, "zt": predictions.zt, "cob": predictions.cob, "uam": predictions.uam]

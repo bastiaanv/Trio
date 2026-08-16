@@ -148,6 +148,7 @@ final class BaseTempTargetsStorage: TempTargetsStorage, Injectable {
             newTempTarget.enabled = tempTarget.enabled ?? false
             newTempTarget.duration = tempTarget.duration as NSDecimalNumber
             newTempTarget.isUploadedToNS = false
+            newTempTarget.isUploadedToNocturne = false
             newTempTarget.name = tempTarget.name
             newTempTarget.target = NSDecimalNumber(decimal: tempTarget.targetTop ?? 0)
             newTempTarget.isPreset = tempTarget.isPreset ?? false
@@ -225,6 +226,7 @@ final class BaseTempTargetsStorage: TempTargetsStorage, Injectable {
         newTempTarget.enabled = tempTarget.enabled
         newTempTarget.duration = tempTarget.duration
         newTempTarget.isUploadedToNS = true // to avoid getting duplicates on NS
+        newTempTarget.isUploadedToNocturne = true // to avoid getting duplicates on Nocturne
         newTempTarget.name = tempTarget.name
         newTempTarget.target = tempTarget.target
         newTempTarget.isPreset = false // no Preset

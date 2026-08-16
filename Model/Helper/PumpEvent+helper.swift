@@ -22,6 +22,7 @@ extension PumpEventStored {
             event.timestamp = Date.now.addingTimeInterval(Double(index) * -300) // Every 5 minutes
             event.type = EventType.bolus.rawValue
             event.isUploadedToNS = false
+            event.isUploadedToNocturne = false
             event.isUploadedToHealth = false
             event.isUploadedToTidepool = false
 
@@ -125,6 +126,11 @@ extension NSPredicate {
     static var pumpEventsNotYetUploadedToNightscout: NSPredicate {
         let date = Date.oneDayAgo
         return NSPredicate(format: "timestamp >= %@ AND isUploadedToNS == %@", date as NSDate, false as NSNumber)
+    }
+    
+    static var pumpEventsNotYetUploadedToNocturne: NSPredicate {
+        let date = Date.oneDayAgo
+        return NSPredicate(format: "timestamp >= %@ AND isUploadedToNocturne == %@", date as NSDate, false as NSNumber)
     }
 
     static var pumpEventsNotYetUploadedToHealth: NSPredicate {

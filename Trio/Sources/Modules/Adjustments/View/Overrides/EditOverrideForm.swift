@@ -596,6 +596,7 @@ struct EditOverrideForm: View {
         override.smbMinutes = smbMinutes.map { NSDecimalNumber(decimal: $0) }
         override.uamMinutes = uamMinutes.map { NSDecimalNumber(decimal: $0) }
         override.isUploadedToNS = false
+        override.isUploadedToNocturne = false
     }
 
     private func resetValues() {

@@ -12,6 +12,7 @@ public extension GlucoseStored {
     @NSManaged var id: UUID?
     @NSManaged var isManual: Bool
     @NSManaged var isUploadedToHealth: Bool
+    @NSManaged var isUploadedToNocturne: Bool
     @NSManaged var isUploadedToNS: Bool
     @NSManaged var isUploadedToTidepool: Bool
     @NSManaged var smoothedGlucose: NSDecimalNumber?

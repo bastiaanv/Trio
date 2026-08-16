@@ -391,6 +391,7 @@ struct EditTempTargetForm: View {
         tempTarget.duration = NSDecimalNumber(decimal: duration)
         tempTarget.date = date
         tempTarget.isUploadedToNS = false
+        tempTarget.isUploadedToNocturne = false
         if let halfBasalValue = halfBasalTarget {
             tempTarget.halfBasalTarget = NSDecimalNumber(decimal: halfBasalValue)
         } else {

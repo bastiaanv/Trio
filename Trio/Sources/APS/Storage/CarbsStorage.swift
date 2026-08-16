@@ -17,7 +17,9 @@ protocol CarbsStorage {
     func syncDate() -> Date
     func getCarbsForAlgorithm(additionalCarbs: Decimal?, carbsDate: Date?) async throws -> [CarbsEntry]
     func getCarbsNotYetUploadedToNightscout() async throws -> [NightscoutTreatment]
+    func getCarbsNotYetUploadedToNocturne() async throws -> [NocturneUpsertCarb]
     func getFPUsNotYetUploadedToNightscout() async throws -> [NightscoutTreatment]
+    func getFPUsNotYetUploadedToNocturne() async throws -> [NocturneUpsertCarb]
     func getCarbsNotYetUploadedToHealth() async throws -> [CarbsEntry]
     func getCarbsNotYetUploadedToTidepool() async throws -> [CarbsEntry]
 }
@@ -297,6 +299,8 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
             newItem.id = UUID()
             newItem.isFPU = false
             newItem.isUploadedToNS = areFetchedFromRemote ? true : false
+            // TODO: @bastiaan, double check this
+            newItem.isUploadedToNocturne = areFetchedFromRemote ? true : false
             newItem.isUploadedToHealth = false
             newItem.isUploadedToTidepool = false
 
@@ -331,6 +335,8 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
             carbEntry.fpuID = commonFPUID
             carbEntry.isFPU = true
             carbEntry.isUploadedToNS = areFetchedFromRemote ? true : false
+            // TODO: @bastiaan double check this
+            carbEntry.isUploadedToNocturne = areFetchedFromRemote ? true : false
             // do NOT set Health and Tidepool flags to ensure they will NOT be uploaded
             return false // return false to continue
         }
@@ -525,6 +531,47 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
             }
         }
     }
+    
+    func getCarbsNotYetUploadedToNocturne() async throws -> [NocturneUpsertCarb] {
+        let context = makeContext()
+        context.name = "getCarbsNotYetUploadedToNocturne"
+        let results = try await CoreDataStack.shared.fetchEntitiesAsync(
+            ofType: CarbEntryStored.self,
+            onContext: context,
+            predicate: NSPredicate.carbsNotYetUploadedToNocturne,
+            key: "date",
+            ascending: false
+        )
+
+        return try await context.perform {
+            guard let carbEntries = results as? [CarbEntryStored] else {
+                throw CoreDataError.fetchError(function: #function, file: #file)
+            }
+
+            return carbEntries.compactMap { result in
+                guard let date = result.date else {
+                    return nil
+                }
+                
+                return NocturneUpsertCarb(
+                    id: result.id?.uuidString,
+                    carbs: result.carbs,
+                    carbTime: nil,
+                    absorptionTime: nil,
+                    fatGrams: result.fat,
+                    proteinGrams: result.protein,
+                    date: date,
+                    // Will be set by NocturneManager itself
+                    timestamp: "",
+                    utcOffset: 0,
+                    device: nil,
+                    app: nil,
+                    dataSource: "",
+                    syncIdentifier: nil
+                )
+            }
+        }
+    }
 
     func getFPUsNotYetUploadedToNightscout() async throws -> [NightscoutTreatment] {
         let context = makeContext()
@@ -562,6 +609,47 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
                     targetTop: nil,
                     targetBottom: nil,
                     id: result.fpuID?.uuidString
+                )
+            }
+        }
+    }
+    
+    func getFPUsNotYetUploadedToNocturne() async throws -> [NocturneUpsertCarb] {
+        let context = makeContext()
+        context.name = "getFPUsNotYetUploadedToNocturne"
+        let results = try await CoreDataStack.shared.fetchEntitiesAsync(
+            ofType: CarbEntryStored.self,
+            onContext: context,
+            predicate: NSPredicate.fpusNotYetUploadedToNightscout,
+            key: "date",
+            ascending: false
+        )
+
+        return try await context.perform {
+            guard let carbEntries = results as? [CarbEntryStored] else {
+                throw CoreDataError.fetchError(function: #function, file: #file)
+            }
+
+            return carbEntries.compactMap { result in
+                guard let date = result.date else {
+                    return nil
+                }
+                
+                return NocturneUpsertCarb(
+                    id: result.id?.uuidString,
+                    carbs: result.carbs,
+                    carbTime: nil,
+                    absorptionTime: nil,
+                    fatGrams: result.fat,
+                    proteinGrams: result.protein,
+                    date: date,
+                    // Will be set by NocturneManager itself
+                    timestamp: "",
+                    utcOffset: 0,
+                    device: nil,
+                    app: nil,
+                    dataSource: "",
+                    syncIdentifier: nil
                 )
             }
         }
