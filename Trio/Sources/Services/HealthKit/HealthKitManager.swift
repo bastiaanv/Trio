@@ -888,7 +888,7 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
                 let beatsPerMinute = HKUnit.count().unitDivided(by: .minute())
 
                 let records: [NocturneUpsertHeartRate] = samples.map { sample in
-                    return NocturneUpsertHeartRate(
+                    NocturneUpsertHeartRate(
                         accuracy: nil,
                         bpm: Int(sample.quantity.doubleValue(for: beatsPerMinute)),
                         date: sample.startDate,

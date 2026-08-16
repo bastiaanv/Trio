@@ -127,7 +127,7 @@ extension NSPredicate {
         let date = Date.oneDayAgo
         return NSPredicate(format: "timestamp >= %@ AND isUploadedToNS == %@", date as NSDate, false as NSNumber)
     }
-    
+
     static var pumpEventsNotYetUploadedToNocturne: NSPredicate {
         let date = Date.oneDayAgo
         return NSPredicate(format: "timestamp >= %@ AND isUploadedToNocturne == %@", date as NSDate, false as NSNumber)

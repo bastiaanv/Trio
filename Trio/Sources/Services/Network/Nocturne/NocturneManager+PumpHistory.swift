@@ -1,6 +1,6 @@
 
 
-//extension BaseNocturneManager {
+// extension BaseNocturneManager {
 //    func performUploadPumpHistory() async {
 //        do {
 //            try await uploadPumpHistory(pumpHistoryStorage.getPumpHistoryNotYetUploadedToNocturne())
@@ -11,4 +11,4 @@
 //            )
 //        }
 //    }
-//}
+// }

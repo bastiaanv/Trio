@@ -87,7 +87,7 @@ extension NSPredicate {
         let date = Date.oneDayAgo
         return NSPredicate(format: "date >= %@ AND isUploadedToNS == %@", date as NSDate, false as NSNumber)
     }
-    
+
     static var glucoseNotYetUploadedToNocturne: NSPredicate {
         let date = Date.oneDayAgo
         return NSPredicate(format: "date >= %@ AND isUploadedToNocturne == %@", date as NSDate, false as NSNumber)

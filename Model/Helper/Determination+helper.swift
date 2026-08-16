@@ -87,7 +87,7 @@ extension NSPredicate {
             true as NSNumber
         )
     }
-    
+
     static var enactedDeterminationsNotYetUploadedToNocturne: NSPredicate {
         NSPredicate(
             format: "deliverAt >= %@ AND isUploadedToNocturne == %@ AND enacted == %@",

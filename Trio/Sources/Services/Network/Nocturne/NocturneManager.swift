@@ -25,7 +25,7 @@ class BaseNocturneManager: NocturneManager, Injectable {
     /// request in release.
     private var uploadSerializer: NocturneUploadSerializer!
     private var subscriptions = Set<AnyCancellable>()
-    
+
     private static let NocturneAppName = "Trio"
     private static let NocturneAppSource = "org.nightscout.trio"
 
@@ -56,7 +56,7 @@ class BaseNocturneManager: NocturneManager, Injectable {
             }
             .store(in: &subscriptions)
     }
-    
+
     /// Request an upload for a pipeline (enqueue work). Safe to call from anywhere.
     /// Bursts of requests coalesce: at most one run follows the one currently in flight.
     func requestUpload(_ uploadPipeline: NocturneUploadPipeline) {
@@ -75,27 +75,27 @@ class BaseNocturneManager: NocturneManager, Injectable {
     func uploadHealthData() async {
         await uploadSerializer.run(.healthData)
     }
-    
+
 //    func uploadCarbs() async {
 //        await uploadSerializer.run(.carbs)
 //    }
-    
+
     func mapNocturneProperties<T: BaseNocturneUpsert>(from properties: [T]) -> [T] {
         let iso8601 = ISO8601DateFormatter()
         let tzOffsetMinutes = TimeZone.current.secondsFromGMT() / 60
         let deviceId = UIDevice.current.identifierForVendor?.uuidString
-        
+
         return properties.map { item in
             var localItem = item
             localItem.timestamp = iso8601.string(from: item.date)
             localItem.utcOffset = tzOffsetMinutes
             localItem.device = deviceId
             localItem.app = Self.NocturneAppName
-            
+
             if item.dataSource == nil {
                 localItem.dataSource = Self.NocturneAppSource
             }
-            
+
             return localItem
         }
     }

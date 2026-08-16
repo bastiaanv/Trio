@@ -98,7 +98,7 @@ extension NocturneAPI {
             warning(.service, "Failed to upload heart rates: \(error.localizedDescription)")
         }
     }
-    
+
     func uploadCarbs(carbs: [NocturneUpsertCarb]) async throws {
         var components = URLComponents()
         components.scheme = url.scheme
@@ -129,19 +129,19 @@ extension NocturneAPI {
 protocol BaseNocturneUpsert {
     /// Internal only
     var date: Date { get set }
-    
+
     /// ISO-8601 date-time
     var timestamp: String { get set }
-    
+
     /// UTC offset in minutes
     var utcOffset: Int? { get set }
-    
+
     /// An id of this device
     var device: String? { get set }
-    
+
     /// The name of the source, this will always be Trio
     var app: String? { get set }
-    
+
     /// The data source, for steps this will be com.apple.health, otherwise this will be org.nightscout.trio
     var dataSource: String? { get set }
     var syncIdentifier: String? { get set }
@@ -150,10 +150,10 @@ protocol BaseNocturneUpsert {
 struct NocturneUpsertStepCount: BaseNocturneUpsert, Encodable {
     /// Step count
     let metric: Int
-    
+
     /// Unknown property
     let source: Int
-    
+
     var date: Date
     var timestamp: String
     var utcOffset: Int?
@@ -166,10 +166,10 @@ struct NocturneUpsertStepCount: BaseNocturneUpsert, Encodable {
 struct NocturneUpsertHeartRate: BaseNocturneUpsert, Encodable {
     /// The accuracy of the sensor
     let accuracy: Int?
-    
+
     /// The actual heart rate measurement
     let bpm: Int
-    
+
     var date: Date
     var timestamp: String
     var utcOffset: Int?
@@ -182,22 +182,22 @@ struct NocturneUpsertHeartRate: BaseNocturneUpsert, Encodable {
 struct NocturneUpsertCarb: BaseNocturneUpsert, Encodable {
     ///  Internal only
     let id: String?
-    
+
     /// The actual carbs
     let carbs: Double
-    
+
     /// Minutes from bolus time to expected carb absorption start (pre-bolus offset)
     let carbTime: Int?
-    
+
     /// Expected carb absorption duration in minutes.
     let absorptionTime: Int?
-    
+
     /// Fat consumed in grams, when the source reports macros. Native fields replace the synthesized FPU fake-carb series legacy uploaders emit for Nightscout.
     let fatGrams: Double?
-    
+
     /// Protein consumed in grams, when the source reports macros.
     let proteinGrams: Double?
-    
+
     var date: Date
     var timestamp: String
     var utcOffset: Int?
@@ -206,4 +206,3 @@ struct NocturneUpsertCarb: BaseNocturneUpsert, Encodable {
     var dataSource: String?
     var syncIdentifier: String?
 }
-

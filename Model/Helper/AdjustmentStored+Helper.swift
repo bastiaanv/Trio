@@ -11,7 +11,7 @@ extension NSPredicate {
             false as NSNumber
         )
     }
-    
+
     static var lastActiveAdjustmentNotYetUploadedToNocturne: NSPredicate {
         let date = Date.oneDayAgo
         return NSPredicate(

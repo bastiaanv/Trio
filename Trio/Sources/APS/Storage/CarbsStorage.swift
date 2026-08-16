@@ -531,7 +531,7 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
             }
         }
     }
-    
+
     func getCarbsNotYetUploadedToNocturne() async throws -> [NocturneUpsertCarb] {
         let context = makeContext()
         context.name = "getCarbsNotYetUploadedToNocturne"
@@ -552,7 +552,7 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
                 guard let date = result.date else {
                     return nil
                 }
-                
+
                 return NocturneUpsertCarb(
                     id: result.id?.uuidString,
                     carbs: result.carbs,
@@ -613,7 +613,7 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
             }
         }
     }
-    
+
     func getFPUsNotYetUploadedToNocturne() async throws -> [NocturneUpsertCarb] {
         let context = makeContext()
         context.name = "getFPUsNotYetUploadedToNocturne"
@@ -634,7 +634,7 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
                 guard let date = result.date else {
                     return nil
                 }
-                
+
                 return NocturneUpsertCarb(
                     id: result.id?.uuidString,
                     carbs: result.carbs,

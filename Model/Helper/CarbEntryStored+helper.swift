@@ -34,7 +34,7 @@ extension NSPredicate {
             false as NSNumber
         )
     }
-    
+
     static var carbsNotYetUploadedToNocturne: NSPredicate {
         let date = Date.oneDayAgo
         return NSPredicate(
@@ -72,7 +72,7 @@ extension NSPredicate {
             true as NSNumber
         )
     }
-    
+
     static var fpusNotYetUploadedToNocturne: NSPredicate {
         let date = Date.oneDayAgo
         return NSPredicate(

@@ -1,5 +1,5 @@
-import Foundation
 import CoreData
+import Foundation
 
 extension BaseNocturneManager {
     func performUploadCarbs() async {
@@ -13,26 +13,26 @@ extension BaseNocturneManager {
             )
         }
     }
-    
+
     private func uploadCarbs(carbs: [NocturneUpsertCarb]) async {
         guard let nocturneAPI, !carbs.isEmpty else {
             return
         }
-        
+
         do {
             let mappedCarbs = mapNocturneProperties(from: carbs)
             for chunk in mappedCarbs.chunks(ofCount: 100) {
                 try await nocturneAPI.uploadCarbs(carbs: Array(chunk))
             }
-            
+
             await updateCarbsAsUploaded(carbs)
-            
+
             debug(.nightscout, "Nocturne carbs uploaded")
         } catch {
             debug(.nightscout, String(describing: error))
         }
     }
-    
+
     private func updateCarbsAsUploaded(_ carbs: [NocturneUpsertCarb]) async {
         let context = CoreDataStack.shared.newTaskContext()
         context.name = "updateCarbsAsUploadedNocturne"

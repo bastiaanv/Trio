@@ -313,12 +313,10 @@
 		3E54EF2C2E476DA40006F54D /* MedtrumKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E54EF2B2E476DA40006F54D /* MedtrumKit.framework */; };
 		3E54EF2D2E476DA40006F54D /* MedtrumKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E54EF2B2E476DA40006F54D /* MedtrumKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E5CD4BA2FF8347D00238041 /* AccuChekKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5CD4B92FF8347D00238041 /* AccuChekKit.framework */; };
-		3E5CD4BB2FF8347D00238041 /* AccuChekKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5CD4B92FF8347D00238041 /* AccuChekKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E62C7822F54CC1B00433237 /* BolusDisplayThreshold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E62C7812F54CC1600433237 /* BolusDisplayThreshold.swift */; };
 		3E705AFB2FF94FAB0007F96B /* BolusStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E705AFA2FF94FAB0007F96B /* BolusStatus.swift */; };
 		3E84DA402F48D96000033608 /* EversenseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E84DA3F2F48D96000033608 /* EversenseKit.framework */; };
 		3E84DA412F48D96000033608 /* EversenseKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E84DA3F2F48D96000033608 /* EversenseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3EDCDA1A2FF8370A00A7544F /* ConfigOverride.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3EDCDA192FF8370A00A7544F /* ConfigOverride.xcconfig */; };
 		3EAB9FBE3031C13A002E7371 /* NocturneAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB9FBD3031C136002E7371 /* NocturneAPI.swift */; };
 		3EAB9FC03031C2BF002E7371 /* NocturneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB9FBF3031C2BB002E7371 /* NocturneManager.swift */; };
 		3EAB9FC23031C38A002E7371 /* NocturneUploadPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB9FC13031C383002E7371 /* NocturneUploadPipeline.swift */; };
@@ -327,10 +325,10 @@
 		3EAB9FCA3031EA0A002E7371 /* NocturneConfigRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB9FC93031EA0A002E7371 /* NocturneConfigRootView.swift */; };
 		3EAB9FCC3031EA7D002E7371 /* NocturneConfigStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB9FCB3031EA78002E7371 /* NocturneConfigStateModel.swift */; };
 		3EAB9FCE3031EAD4002E7371 /* NocturneConfigProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB9FCD3031EACE002E7371 /* NocturneConfigProvider.swift */; };
-		3EB134583032301F00D207AE /* BaseNocturneManager+Subscribers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB134573032301400D207AE /* BaseNocturneManager+Subscribers.swift */; };
 		3EB1345A3032330600D207AE /* NocturneManager+Carbs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB13459303232FE00D207AE /* NocturneManager+Carbs.swift */; };
 		3EB1345C30323A9F00D207AE /* NocturneManager+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1345B30323A9900D207AE /* NocturneManager+Health.swift */; };
 		3EB1345E30323B0C00D207AE /* NocturneManager+PumpHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1345D30323B0600D207AE /* NocturneManager+PumpHistory.swift */; };
+		3EDCDA1A2FF8370A00A7544F /* ConfigOverride.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3EDCDA192FF8370A00A7544F /* ConfigOverride.xcconfig */; };
 		3EF667132FE48509009FB31A /* BasalDeliveryState+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF667122FE48502009FB31A /* BasalDeliveryState+Extension.swift */; };
 		3F23E18680094E6DA98628E4 /* QuickPickTreatmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A54068ABDAE4898B243DF14 /* QuickPickTreatmentsView.swift */; };
 		41740E936552456AAC0EDAC3 /* SettingsSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3919BBB515547118D684CA2 /* SettingsSearchTests.swift */; };
@@ -1367,17 +1365,14 @@
 		3BF424C62DF480550017CFD9 /* AutosensError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutosensError.swift; sourceTree = "<group>"; };
 		3BF768BD6264FF7D71D66767 /* NightscoutConfigProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NightscoutConfigProvider.swift; sourceTree = "<group>"; };
 		3BF92F392D86F1AA006B545A /* iob-error-log.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "iob-error-log.json"; sourceTree = "<group>"; };
-		3E391F34300B5DD300A26E8F /* CareSenseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CareSenseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E391F37300B5E5400A26E8F /* CareSensKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CareSensKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E5308A43002BC970075629E /* AccuChekKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AccuChekKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E54EF2B2E476DA40006F54D /* MedtrumKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MedtrumKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E5CD4B32FF833E200238041 /* AccuChekKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AccuChekKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E5CD4B62FF833E700238041 /* EversenseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EversenseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E5CD4B92FF8347D00238041 /* AccuChekKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AccuChekKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E62C7812F54CC1600433237 /* BolusDisplayThreshold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BolusDisplayThreshold.swift; sourceTree = "<group>"; };
 		3E705AFA2FF94FAB0007F96B /* BolusStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BolusStatus.swift; sourceTree = "<group>"; };
 		3E84DA3F2F48D96000033608 /* EversenseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = EversenseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3EDCDA192FF8370A00A7544F /* ConfigOverride.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = ConfigOverride.xcconfig; path = ../ConfigOverride.xcconfig; sourceTree = SOURCE_ROOT; };
 		3EAB9FBD3031C136002E7371 /* NocturneAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NocturneAPI.swift; sourceTree = "<group>"; };
 		3EAB9FBF3031C2BB002E7371 /* NocturneManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NocturneManager.swift; sourceTree = "<group>"; };
 		3EAB9FC13031C383002E7371 /* NocturneUploadPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NocturneUploadPipeline.swift; sourceTree = "<group>"; };
@@ -1386,10 +1381,10 @@
 		3EAB9FC93031EA0A002E7371 /* NocturneConfigRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NocturneConfigRootView.swift; sourceTree = "<group>"; };
 		3EAB9FCB3031EA78002E7371 /* NocturneConfigStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NocturneConfigStateModel.swift; sourceTree = "<group>"; };
 		3EAB9FCD3031EACE002E7371 /* NocturneConfigProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NocturneConfigProvider.swift; sourceTree = "<group>"; };
-		3EB134573032301400D207AE /* BaseNocturneManager+Subscribers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseNocturneManager+Subscribers.swift"; sourceTree = "<group>"; };
 		3EB13459303232FE00D207AE /* NocturneManager+Carbs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NocturneManager+Carbs.swift"; sourceTree = "<group>"; };
 		3EB1345B30323A9900D207AE /* NocturneManager+Health.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NocturneManager+Health.swift"; sourceTree = "<group>"; };
 		3EB1345D30323B0600D207AE /* NocturneManager+PumpHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NocturneManager+PumpHistory.swift"; sourceTree = "<group>"; };
+		3EDCDA192FF8370A00A7544F /* ConfigOverride.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = ConfigOverride.xcconfig; path = ../ConfigOverride.xcconfig; sourceTree = SOURCE_ROOT; };
 		3EF667122FE48502009FB31A /* BasalDeliveryState+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasalDeliveryState+Extension.swift"; sourceTree = "<group>"; };
 		3F60E97100041040446F44E7 /* PumpConfigStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PumpConfigStateModel.swift; sourceTree = "<group>"; };
 		3F8A87AA037BD079BA3528BA /* ConfigEditorDataFlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigEditorDataFlow.swift; sourceTree = "<group>"; };
@@ -3317,7 +3312,6 @@
 				3EB13459303232FE00D207AE /* NocturneManager+Carbs.swift */,
 				3EB1345D30323B0600D207AE /* NocturneManager+PumpHistory.swift */,
 				3EAB9FBD3031C136002E7371 /* NocturneAPI.swift */,
-				3EB134573032301400D207AE /* BaseNocturneManager+Subscribers.swift */,
 			);
 			path = Nocturne;
 			sourceTree = "<group>";
@@ -5644,7 +5638,6 @@
 				F5F7E6C1B7F098F59EB67EC5 /* TargetsEditorDataFlow.swift in Sources */,
 				DD17453A2C55BFA600211FAC /* AlgorithmAdvancedSettingsDataFlow.swift in Sources */,
 				5075C1608E6249A51495C422 /* TargetsEditorProvider.swift in Sources */,
-				3EB134583032301F00D207AE /* BaseNocturneManager+Subscribers.swift in Sources */,
 				E13B7DAB2A435F57066AF02E /* TargetsEditorStateModel.swift in Sources */,
 				3B997DCB2DC00849006B6BB2 /* JSONImporter.swift in Sources */,
 				BD249D992D42FCCD00412DEB /* BolusStatsSetup.swift in Sources */,
