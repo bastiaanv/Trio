@@ -3,7 +3,7 @@ import Foundation
 
 class NocturneAPI {
     private enum Config {
-        static let checkConnectionPath = "api/v4/glucose/sensor"
+        static let checkConnectionPath = "/api/v4/glucose/sensor"
         static let stepsPath = "/api/v4/StepCount"
         static let heartRatesPath = "/api/v4/HeartRate"
         static let carbsPath = "/api/v4/nutrition/carbs"
