@@ -63,6 +63,7 @@ final class OpenAPS {
             newOrefDetermination.smbToDeliver = determination.units.map { NSDecimalNumber(decimal: $0) }
             newOrefDetermination.carbsRequired = Int16(Int(determination.carbsReq ?? 0))
             newOrefDetermination.isUploadedToNS = false
+            newOrefDetermination.isUploadedToNocturne = false
 
             if let predictions = determination.predictions {
                 ["iob": predictions.iob, "zt": predictions.zt, "cob": predictions.cob, "uam": predictions.uam]

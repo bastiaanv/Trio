@@ -37,9 +37,9 @@ protocol HealthKitManager {
     /// delete insulin with syncID
     func deleteInsulin(syncID: String) async
     /// Fetch steps for a given timeframe
-    func loadSteps(from start: Date, to end: Date) async -> [UpsertStepCountRequest]
+    func loadSteps(from start: Date, to end: Date) async -> [NocturneUpsertStepCount]
     /// Fetch heart rate for a given timeframe
-    func loadHeartRate(from start: Date, to end: Date) async -> [UpsertHeartRateRequest]
+    func loadHeartRate(from start: Date, to end: Date) async -> [NocturneUpsertHeartRate]
     /// Fetch sleep data for a given timeframe
 //    func loadSleep(from start: Date, to end: Date) async -> [HKSample]?
 }
@@ -69,8 +69,7 @@ public enum AppleHealthConfig {
 
     // MetaDataKey of Trio data in HealthStore
     static let TrioInsulinType = "Trio Insulin Type"
-    static let TrioAppNameNocturne = "Trio"
-    static let DataSourceNocturne = "com.apple.health"
+    static let NocturneDataSource = "com.apple.health"
 }
 
 final class BaseHealthKitManager: HealthKitManager, Injectable {
@@ -781,7 +780,7 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
     // MARK: - Health Data Fetching (Read-Only)
 
     /// Fetches step count data for the specified timeframe
-    func loadSteps(from start: Date, to end: Date) async -> [UpsertStepCountRequest] {
+    func loadSteps(from start: Date, to end: Date) async -> [NocturneUpsertStepCount] {
         await withCheckedContinuation { continuation in
             guard let stepType = AppleHealthConfig.healthStepsObject else {
                 debug(.service, "Steps type not available")
@@ -821,26 +820,21 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
                     return
                 }
 
-                let iso8601 = ISO8601DateFormatter()
-                let tzOffsetMinutes = TimeZone.current.secondsFromGMT() / 60
-
-                var records: [UpsertStepCountRequest] = []
+                var records: [NocturneUpsertStepCount] = []
                 collection.enumerateStatistics(from: start, to: end) { stats, _ in
                     guard let sum = stats.sumQuantity(), sum.doubleValue(for: .count()) > 0 else {
                         return
                     }
 
-                    let steps = Int(sum.doubleValue(for: .count()))
-                    let timestamp = iso8601.string(from: stats.startDate)
-
-                    records.append(UpsertStepCountRequest(
-                        timestamp: timestamp,
-                        utcOffset: tzOffsetMinutes,
-                        metric: steps,
+                    records.append(NocturneUpsertStepCount(
+                        metric: Int(sum.doubleValue(for: .count())),
                         source: 1,
-                        device: UIDevice.current.identifierForVendor?.uuidString,
-                        app: AppleHealthConfig.TrioAppNameNocturne,
-                        dataSource: AppleHealthConfig.DataSourceNocturne,
+                        date: stats.startDate,
+                        timestamp: "",
+                        utcOffset: nil,
+                        device: nil,
+                        app: nil,
+                        dataSource: AppleHealthConfig.NocturneDataSource,
                         syncIdentifier: nil
                     ))
                 }
@@ -853,7 +847,7 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
     }
 
     /// Fetches heart rate data for the specified timeframe
-    func loadHeartRate(from start: Date, to end: Date) async -> [UpsertHeartRateRequest] {
+    func loadHeartRate(from start: Date, to end: Date) async -> [NocturneUpsertHeartRate] {
         await withCheckedContinuation { continuation in
             guard let heartRateType = AppleHealthConfig.healthHeartRateObject else {
                 debug(.service, "Heart rate type not available")
@@ -891,22 +885,18 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
                     return
                 }
 
-                let iso8601 = ISO8601DateFormatter()
-                let tzOffsetMinutes = TimeZone.current.secondsFromGMT() / 60
                 let beatsPerMinute = HKUnit.count().unitDivided(by: .minute())
 
-                let records: [UpsertHeartRateRequest] = samples.map { sample in
-                    let bpm = Int(sample.quantity.doubleValue(for: beatsPerMinute))
-                    let timestamp = iso8601.string(from: sample.startDate)
-
-                    return UpsertHeartRateRequest(
-                        timestamp: timestamp,
-                        utcOffset: tzOffsetMinutes,
+                let records: [NocturneUpsertHeartRate] = samples.map { sample in
+                    return NocturneUpsertHeartRate(
                         accuracy: nil,
-                        bpm: bpm,
-                        device: UIDevice.current.identifierForVendor?.uuidString,
-                        app: AppleHealthConfig.TrioAppNameNocturne,
-                        dataSource: AppleHealthConfig.DataSourceNocturne,
+                        bpm: Int(sample.quantity.doubleValue(for: beatsPerMinute)),
+                        date: sample.startDate,
+                        timestamp: "",
+                        utcOffset: nil,
+                        device: nil,
+                        app: nil,
+                        dataSource: AppleHealthConfig.NocturneDataSource,
                         syncIdentifier: nil
                     )
                 }

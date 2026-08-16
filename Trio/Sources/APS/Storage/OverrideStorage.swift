@@ -140,6 +140,7 @@ final class BaseOverrideStorage: @preconcurrency OverrideStorage, Injectable {
             newOverride.date = override.date
             newOverride.isPreset = override.isPreset
             newOverride.isUploadedToNS = false
+            newOverride.isUploadedToNocturne = false
 
             // Assign orderPosition if it's a preset and presetCount is valid
             if override.isPreset, presetCount > -1 {
@@ -208,6 +209,7 @@ final class BaseOverrideStorage: @preconcurrency OverrideStorage, Injectable {
         newOverride.smbMinutes = override.smbMinutes
         newOverride.uamMinutes = override.uamMinutes
         newOverride.isUploadedToNS = true // set to true to avoid getting duplicate entries on NS
+        newOverride.isUploadedToNocturne = true // set to true to avoid getting duplicate entries on Nocturne
 
         await viewContext.perform {
             do {

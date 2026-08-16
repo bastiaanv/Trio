@@ -13,6 +13,7 @@ public extension CarbEntryStored {
     @NSManaged var id: UUID?
     @NSManaged var isFPU: Bool
     @NSManaged var isUploadedToNS: Bool
+    @NSManaged var isUploadedToNocturne: Bool
     @NSManaged var isUploadedToHealth: Bool
     @NSManaged var isUploadedToTidepool: Bool
     @NSManaged var note: String?

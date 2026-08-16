@@ -32,6 +32,7 @@ extension GlucoseStored {
             glucose.direction = BloodGlucose.Direction.flat.rawValue
             glucose.isManual = false
             glucose.isUploadedToNS = false
+            glucose.isUploadedToNocturne = false
             glucose.isUploadedToHealth = false
             glucose.isUploadedToTidepool = false
             return glucose
@@ -85,6 +86,11 @@ extension NSPredicate {
     static var glucoseNotYetUploadedToNightscout: NSPredicate {
         let date = Date.oneDayAgo
         return NSPredicate(format: "date >= %@ AND isUploadedToNS == %@", date as NSDate, false as NSNumber)
+    }
+    
+    static var glucoseNotYetUploadedToNocturne: NSPredicate {
+        let date = Date.oneDayAgo
+        return NSPredicate(format: "date >= %@ AND isUploadedToNocturne == %@", date as NSDate, false as NSNumber)
     }
 
     static var glucoseNotYetUploadedToHealth: NSPredicate {

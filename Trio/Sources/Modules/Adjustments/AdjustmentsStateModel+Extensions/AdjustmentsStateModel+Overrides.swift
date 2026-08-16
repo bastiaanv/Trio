@@ -17,6 +17,7 @@ extension Adjustments.StateModel {
             overrideToEnact.enabled = true
             overrideToEnact.date = Date()
             overrideToEnact.isUploadedToNS = false
+            overrideToEnact.isUploadedToNocturne = false
             isOverrideEnabled = true
 
             guard viewContext.hasChanges else { return }
@@ -60,6 +61,7 @@ extension Adjustments.StateModel {
                         )
                         newOverrideRunStored.override = canceledOverride
                         newOverrideRunStored.isUploadedToNS = false
+                        newOverrideRunStored.isUploadedToNocturne = false
                     }
                 }
 

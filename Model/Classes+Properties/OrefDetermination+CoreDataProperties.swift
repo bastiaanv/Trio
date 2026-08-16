@@ -23,6 +23,7 @@ public extension OrefDetermination {
     @NSManaged var insulinSensitivity: NSDecimalNumber?
     @NSManaged var iob: NSDecimalNumber?
     @NSManaged var isUploadedToNS: Bool
+    @NSManaged var isUploadedToNocturne: Bool
     @NSManaged var manualBolusErrorString: NSDecimalNumber?
     @NSManaged var minDelta: NSDecimalNumber?
     @NSManaged var rate: NSDecimalNumber?

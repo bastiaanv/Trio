@@ -322,6 +322,10 @@
 		3EAB9FCA3031EA0A002E7371 /* NocturneConfigRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB9FC93031EA0A002E7371 /* NocturneConfigRootView.swift */; };
 		3EAB9FCC3031EA7D002E7371 /* NocturneConfigStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB9FCB3031EA78002E7371 /* NocturneConfigStateModel.swift */; };
 		3EAB9FCE3031EAD4002E7371 /* NocturneConfigProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB9FCD3031EACE002E7371 /* NocturneConfigProvider.swift */; };
+		3EB134583032301F00D207AE /* BaseNocturneManager+Subscribers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB134573032301400D207AE /* BaseNocturneManager+Subscribers.swift */; };
+		3EB1345A3032330600D207AE /* NocturneManager+Carbs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB13459303232FE00D207AE /* NocturneManager+Carbs.swift */; };
+		3EB1345C30323A9F00D207AE /* NocturneManager+Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1345B30323A9900D207AE /* NocturneManager+Health.swift */; };
+		3EB1345E30323B0C00D207AE /* NocturneManager+PumpHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1345D30323B0600D207AE /* NocturneManager+PumpHistory.swift */; };
 		3EF667132FE48509009FB31A /* BasalDeliveryState+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF667122FE48502009FB31A /* BasalDeliveryState+Extension.swift */; };
 		3F23E18680094E6DA98628E4 /* QuickPickTreatmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A54068ABDAE4898B243DF14 /* QuickPickTreatmentsView.swift */; };
 		41740E936552456AAC0EDAC3 /* SettingsSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3919BBB515547118D684CA2 /* SettingsSearchTests.swift */; };
@@ -1370,6 +1374,10 @@
 		3EAB9FC93031EA0A002E7371 /* NocturneConfigRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NocturneConfigRootView.swift; sourceTree = "<group>"; };
 		3EAB9FCB3031EA78002E7371 /* NocturneConfigStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NocturneConfigStateModel.swift; sourceTree = "<group>"; };
 		3EAB9FCD3031EACE002E7371 /* NocturneConfigProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NocturneConfigProvider.swift; sourceTree = "<group>"; };
+		3EB134573032301400D207AE /* BaseNocturneManager+Subscribers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseNocturneManager+Subscribers.swift"; sourceTree = "<group>"; };
+		3EB13459303232FE00D207AE /* NocturneManager+Carbs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NocturneManager+Carbs.swift"; sourceTree = "<group>"; };
+		3EB1345B30323A9900D207AE /* NocturneManager+Health.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NocturneManager+Health.swift"; sourceTree = "<group>"; };
+		3EB1345D30323B0600D207AE /* NocturneManager+PumpHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NocturneManager+PumpHistory.swift"; sourceTree = "<group>"; };
 		3EF667122FE48502009FB31A /* BasalDeliveryState+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BasalDeliveryState+Extension.swift"; sourceTree = "<group>"; };
 		3F60E97100041040446F44E7 /* PumpConfigStateModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PumpConfigStateModel.swift; sourceTree = "<group>"; };
 		3F8A87AA037BD079BA3528BA /* ConfigEditorDataFlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConfigEditorDataFlow.swift; sourceTree = "<group>"; };
@@ -3289,7 +3297,11 @@
 				3EAB9FC33031C3A7002E7371 /* NocturneUploadSerializer.swift */,
 				3EAB9FC13031C383002E7371 /* NocturneUploadPipeline.swift */,
 				3EAB9FBF3031C2BB002E7371 /* NocturneManager.swift */,
+				3EB1345B30323A9900D207AE /* NocturneManager+Health.swift */,
+				3EB13459303232FE00D207AE /* NocturneManager+Carbs.swift */,
+				3EB1345D30323B0600D207AE /* NocturneManager+PumpHistory.swift */,
 				3EAB9FBD3031C136002E7371 /* NocturneAPI.swift */,
+				3EB134573032301400D207AE /* BaseNocturneManager+Subscribers.swift */,
 			);
 			path = Nocturne;
 			sourceTree = "<group>";
@@ -5080,6 +5092,7 @@
 				B63C9D934FC54853BC4EF29A /* NightscoutUploadSerializer.swift in Sources */,
 				BDF530D82B40F8AC002CAF43 /* LockScreenView.swift in Sources */,
 				195D80B72AF697B800D25097 /* DynamicSettingsDataFlow.swift in Sources */,
+				3EB1345E30323B0C00D207AE /* NocturneManager+PumpHistory.swift in Sources */,
 				DD98ACC02D71013200C0778F /* StatChartUtils.swift in Sources */,
 				BD47FDD92D8B657D0043966B /* InsulinSensitivityStepView.swift in Sources */,
 				3862CC2E2743F9F700BF832C /* CalendarManager.swift in Sources */,
@@ -5382,6 +5395,7 @@
 				BD11797B2F4E22C100F90001 /* AlarmSoundCatalog.swift in Sources */,
 				BD11797D2F4E22C100F90001 /* AlarmWindowIcon.swift in Sources */,
 				BD1179832F4E22C100F90001 /* DeviceAlertSeverity.swift in Sources */,
+				3EB1345C30323A9F00D207AE /* NocturneManager+Health.swift in Sources */,
 				BD1179852F4E22C100F90001 /* DeviceAlertSeverityConfig.swift in Sources */,
 				BD1179872F4E22C100F90001 /* DeviceAlertsStore.swift in Sources */,
 				BD1179892F4E22C100F90001 /* DeviceAlarmsDataFlow.swift in Sources */,
@@ -5613,6 +5627,7 @@
 				F5F7E6C1B7F098F59EB67EC5 /* TargetsEditorDataFlow.swift in Sources */,
 				DD17453A2C55BFA600211FAC /* AlgorithmAdvancedSettingsDataFlow.swift in Sources */,
 				5075C1608E6249A51495C422 /* TargetsEditorProvider.swift in Sources */,
+				3EB134583032301F00D207AE /* BaseNocturneManager+Subscribers.swift in Sources */,
 				E13B7DAB2A435F57066AF02E /* TargetsEditorStateModel.swift in Sources */,
 				3B997DCB2DC00849006B6BB2 /* JSONImporter.swift in Sources */,
 				BD249D992D42FCCD00412DEB /* BolusStatsSetup.swift in Sources */,
@@ -5653,6 +5668,7 @@
 				DD32CF9E2CC824C5003686D6 /* TrioRemoteControl+Override.swift in Sources */,
 				BD249D922D42FC5300412DEB /* GlucoseSectorChart.swift in Sources */,
 				23888883D4EA091C88480FF2 /* TreatmentsProvider.swift in Sources */,
+				3EB1345A3032330600D207AE /* NocturneManager+Carbs.swift in Sources */,
 				38E98A2D25F52DC400C0CED0 /* NSLocking+Extensions.swift in Sources */,
 				BB5227A51D9D4377A1A70BA6 /* TempTargetData.swift in Sources */,
 				BDBAACFA2C2D439700370AAE /* OverrideData.swift in Sources */,

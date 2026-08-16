@@ -137,6 +137,7 @@ import UIKit
             overrideObject.enabled = true
             overrideObject.date = Date()
             overrideObject.isUploadedToNS = false
+            overrideObject.isUploadedToNocturne = false
 
             if viewContext.hasChanges {
                 debug(.default, "Saving changes...")
@@ -212,6 +213,7 @@ import UIKit
                 )
                 newOverrideRunStored.override = canceledOverride
                 newOverrideRunStored.isUploadedToNS = false
+                newOverrideRunStored.isUploadedToNocturne = false
             }
 
             // Disable all active overrides
@@ -224,6 +226,7 @@ import UIKit
                 )
                 overrideToCancel.enabled = false
                 overrideToCancel.isUploadedToNS = false
+                overrideToCancel.isUploadedToNocturne = false
             }
 
             if viewContext.hasChanges {

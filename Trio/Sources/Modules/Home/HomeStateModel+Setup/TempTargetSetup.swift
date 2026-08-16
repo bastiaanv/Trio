@@ -81,6 +81,7 @@ extension Home.StateModel {
         newTempTargetRunStored.target = object.target ?? 0
         newTempTargetRunStored.tempTarget = object
         newTempTargetRunStored.isUploadedToNS = false
+        newTempTargetRunStored.isUploadedToNocturne = false
 
         do {
             guard viewContext.hasChanges else { return }

@@ -257,6 +257,7 @@ final class BaseGlucoseStorage: GlucoseStorage, Injectable {
         entry.date = glucose.dateString
         entry.direction = glucose.direction?.rawValue
         entry.isUploadedToNS = false
+        entry.isUploadedToNocturne = false
         entry.isUploadedToHealth = false
         entry.isUploadedToTidepool = false
     }
@@ -339,6 +340,7 @@ final class BaseGlucoseStorage: GlucoseStorage, Injectable {
             newItem.glucose = Int16(glucose)
             newItem.isManual = true
             newItem.isUploadedToNS = false
+            newItem.isUploadedToNocturne = false
             newItem.isUploadedToHealth = false
             newItem.isUploadedToTidepool = false
 

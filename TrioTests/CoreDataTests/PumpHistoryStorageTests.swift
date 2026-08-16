@@ -207,6 +207,7 @@ import Testing
         #expect(bolusEvent != nil, "Should have found bolus event")
         #expect(bolusEvent?.bolus?.amount as? Decimal == 0.4, "Bolus amount should be 0.4")
         #expect(bolusEvent?.isUploadedToNS == false, "Should not be uploaded to NS")
+        #expect(bolusEvent?.isUploadedToNocturne == false, "Should not be uploaded to Nocturne")
         #expect(bolusEvent?.isUploadedToHealth == false, "Should not be uploaded to Health")
         #expect(bolusEvent?.isUploadedToTidepool == false, "Should not be uploaded to Tidepool")
         #expect(bolusEvent?.bolus?.isSMB == true, "Should be a SMB")
@@ -221,6 +222,7 @@ import Testing
         #expect(tempBasalEvent?.tempBasal?.rate as? Decimal == 1.2, "Temp basal rate should be 1.2")
         #expect(tempBasalEvent?.tempBasal?.duration == 30, "Temp basal duration should be 30 minutes")
         #expect(tempBasalEvent?.isUploadedToNS == false, "Should not be uploaded to NS")
+        #expect(tempBasalEvent?.isUploadedToNocturne == false, "Should not be uploaded to Nocturne")
         #expect(tempBasalEvent?.isUploadedToHealth == false, "Should not be uploaded to Health")
         #expect(bolusEvent?.isUploadedToTidepool == false, "Should not be uploaded to Tidepool")
     }
@@ -283,6 +285,7 @@ import Testing
         #expect(fetchedEvent?.bolus?.isSMB == false, "Should not be a SMB")
         #expect(fetchedEvent?.bolus?.isExternal == false, "Should not be external Insulin")
         #expect(fetchedEvent?.isUploadedToNS == false, "Should not be uploaded to NS")
+        #expect(fetchedEvent?.isUploadedToNocturne == false, "Should not be uploaded to Nocturne")
         #expect(fetchedEvent?.isUploadedToHealth == false, "Should not be uploaded to Health")
         #expect(fetchedEvent?.isUploadedToTidepool == false, "Should not be uploaded to Tidepool")
     }

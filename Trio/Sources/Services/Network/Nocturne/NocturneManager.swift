@@ -5,14 +5,17 @@ import UIKit
 
 protocol NocturneManager {
     func uploadHealthData() async
+    func uploadCarbs() async
 }
 
 class BaseNocturneManager: NocturneManager, Injectable {
     @Injected() private var keychain: Keychain!
-    @Injected() private var healthkitManager: HealthKitManager!
+    @Injected() var pumpHistoryStorage: PumpHistoryStorage!
+    @Injected() var carbsStorage: CarbsStorage!
+    @Injected() var healthkitManager: HealthKitManager!
     @Injected() private var notificationCenter: NotificationCenter!
 
-    @Persisted(key: "nocturneLastUpload") private var lastHealthDataUploaded: Date? = nil
+    @Persisted(key: "nocturneLastUpload") var lastHealthDataUploaded: Date? = nil
 
     /// Coalesces and serializes upload runs so no two runs of the same pipeline overlap.
     /// Runs execute `performUpload(for:)`, provided at init. The public `upload*()`
@@ -22,8 +25,11 @@ class BaseNocturneManager: NocturneManager, Injectable {
     /// request in release.
     private var uploadSerializer: NocturneUploadSerializer!
     private var subscriptions = Set<AnyCancellable>()
+    
+    private static let NocturneAppName = "Trio"
+    private static let NocturneAppSource = "org.nightscout.trio"
 
-    private var nocturneAPI: NocturneAPI? {
+    var nocturneAPI: NocturneAPI? {
         guard let urlString = keychain.getValue(String.self, forKey: NocturneConfig.Config.urlKey),
               let url = URL(string: urlString),
               let secret = keychain.getValue(String.self, forKey: NocturneConfig.Config.secretKey)
@@ -50,40 +56,47 @@ class BaseNocturneManager: NocturneManager, Injectable {
             }
             .store(in: &subscriptions)
     }
+    
+    /// Request an upload for a pipeline (enqueue work). Safe to call from anywhere.
+    /// Bursts of requests coalesce: at most one run follows the one currently in flight.
+    func requestUpload(_ uploadPipeline: NocturneUploadPipeline) {
+        Task(priority: .utility) { [weak self] in
+            await self?.uploadSerializer.request(uploadPipeline)
+        }
+    }
 
     private func performUpload(for uploadPipeline: NocturneUploadPipeline) async {
         switch uploadPipeline {
         case .healthData: await performUploadHealthData()
+        case .carbs: await performUploadCarbs()
         }
     }
 
     func uploadHealthData() async {
         await uploadSerializer.run(.healthData)
     }
-
-    private func performUploadHealthData() async {
-        guard let nocturneAPI else {
-            debug(.service, "No nocturne API for upload")
-            return
-        }
-
-        let fromDate = lastHealthDataUploaded ?? Date.now.addingTimeInterval(.hours(-6))
-
-        let heartRateData = await healthkitManager.loadHeartRate(from: fromDate, to: .now)
-        if !heartRateData.isEmpty {
-            for chunk in heartRateData.chunks(ofCount: 100) {
-                await nocturneAPI.uploadHeartRates(steps: Array(chunk))
+    
+    func uploadCarbs() async {
+        await uploadSerializer.run(.carbs)
+    }
+    
+    func mapNocturneProperties<T: BaseNocturneUpsert>(from properties: [T]) -> [T] {
+        let iso8601 = ISO8601DateFormatter()
+        let tzOffsetMinutes = TimeZone.current.secondsFromGMT() / 60
+        let deviceId = UIDevice.current.identifierForVendor?.uuidString
+        
+        return properties.map { item in
+            var localItem = item
+            localItem.timestamp = iso8601.string(from: item.date)
+            localItem.utcOffset = tzOffsetMinutes
+            localItem.device = deviceId
+            localItem.app = Self.NocturneAppName
+            
+            if item.dataSource == nil {
+                localItem.dataSource = Self.NocturneAppSource
             }
+            
+            return localItem
         }
-
-        let stepsData = await healthkitManager.loadSteps(from: fromDate, to: .now)
-        if !stepsData.isEmpty {
-            for chunk in stepsData.chunks(ofCount: 100) {
-                await nocturneAPI.uploadSteps(steps: Array(chunk))
-            }
-        }
-
-        debug(.service, "Nocturne upload completed! count: \(heartRateData.count + stepsData.count)")
-        lastHealthDataUploaded = Date.now
     }
 }

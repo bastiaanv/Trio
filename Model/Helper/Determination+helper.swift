@@ -87,6 +87,25 @@ extension NSPredicate {
             true as NSNumber
         )
     }
+    
+    static var enactedDeterminationsNotYetUploadedToNocturne: NSPredicate {
+        NSPredicate(
+            format: "deliverAt >= %@ AND isUploadedToNocturne == %@ AND enacted == %@",
+            Date.oneDayAgo as NSDate,
+            false as NSNumber,
+            true as NSNumber
+        )
+    }
+
+    static var suggestedDeterminationsNotYetUploadedToNocturne: NSPredicate {
+        NSPredicate(
+            format: "deliverAt >= %@ AND isUploadedToNocturne == %@ AND (enacted == %@ OR enacted == nil OR enacted != %@)",
+            Date.oneDayAgo as NSDate,
+            false as NSNumber,
+            true as NSNumber,
+            true as NSNumber
+        )
+    }
 
     static var determinationsForStats: NSPredicate {
         let date = Date.threeMonthsAgo
