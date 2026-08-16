@@ -5,7 +5,7 @@ import UIKit
 
 protocol NocturneManager {
     func uploadHealthData() async
-    func uploadCarbs() async
+//    func uploadCarbs() async
 }
 
 class BaseNocturneManager: NocturneManager, Injectable {
@@ -68,7 +68,7 @@ class BaseNocturneManager: NocturneManager, Injectable {
     private func performUpload(for uploadPipeline: NocturneUploadPipeline) async {
         switch uploadPipeline {
         case .healthData: await performUploadHealthData()
-        case .carbs: await performUploadCarbs()
+//        case .carbs: await performUploadCarbs()
         }
     }
 
@@ -76,9 +76,9 @@ class BaseNocturneManager: NocturneManager, Injectable {
         await uploadSerializer.run(.healthData)
     }
     
-    func uploadCarbs() async {
-        await uploadSerializer.run(.carbs)
-    }
+//    func uploadCarbs() async {
+//        await uploadSerializer.run(.carbs)
+//    }
     
     func mapNocturneProperties<T: BaseNocturneUpsert>(from properties: [T]) -> [T] {
         let iso8601 = ISO8601DateFormatter()
