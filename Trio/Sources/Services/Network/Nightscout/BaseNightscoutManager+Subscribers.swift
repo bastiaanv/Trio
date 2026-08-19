@@ -35,18 +35,18 @@ extension BaseNightscoutManager {
     /// rapid changes don't spam Nightscout.
     func wireUploadControllers() {
         func notYetUploadedToNS(_ dateKey: String) -> NSPredicate {
-            NSPredicate(
-                format: "%K >= %@ AND isUploadedToNS == %@",
-                dateKey,
-                Date.oneDayAgo as NSDate,
-                false as NSNumber
-            )
+            NSPredicate.notYetUploaded(to: .nightscout, since: Date.oneDayAgo, dateKey: dateKey)
         }
 
         // Overrides and temp targets each have two triggers (Stored + RunStored) feeding
         // one pipeline; determinations feed the deviceStatus pipeline.
-        let triggers: [(entityName: String, sortKey: String, predicate: NSPredicate, batchSize: Int?,
-                        pipeline: NightscoutUploadPipeline)] = [
+        let triggers: [(
+            entityName: String,
+            sortKey: String,
+            predicate: NSPredicate,
+            batchSize: Int?,
+            pipeline: NightscoutUploadPipeline
+        )] = [
             ("OrefDetermination", "deliverAt", notYetUploadedToNS("deliverAt"), 50, .deviceStatus),
             ("OverrideStored", "date", notYetUploadedToNS("date"), nil, .overrides),
             ("OverrideRunStored", "startDate", notYetUploadedToNS("startDate"), nil, .overrides),

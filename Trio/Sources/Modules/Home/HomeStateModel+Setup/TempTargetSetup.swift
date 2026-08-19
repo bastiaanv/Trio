@@ -80,7 +80,7 @@ extension Home.StateModel {
         newTempTargetRunStored.endDate = Date()
         newTempTargetRunStored.target = object.target ?? 0
         newTempTargetRunStored.tempTarget = object
-        newTempTargetRunStored.isUploadedToNS = false
+        newTempTargetRunStored.resetUpload(to: .nightscout)
 
         do {
             guard viewContext.hasChanges else { return }

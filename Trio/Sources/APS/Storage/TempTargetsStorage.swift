@@ -147,7 +147,6 @@ final class BaseTempTargetsStorage: TempTargetsStorage, Injectable {
             newTempTarget.id = UUID()
             newTempTarget.enabled = tempTarget.enabled ?? false
             newTempTarget.duration = tempTarget.duration as NSDecimalNumber
-            newTempTarget.isUploadedToNS = false
             newTempTarget.name = tempTarget.name
             newTempTarget.target = NSDecimalNumber(decimal: tempTarget.targetTop ?? 0)
             newTempTarget.isPreset = tempTarget.isPreset ?? false
@@ -224,7 +223,7 @@ final class BaseTempTargetsStorage: TempTargetsStorage, Injectable {
         newTempTarget.id = tempTarget.id
         newTempTarget.enabled = tempTarget.enabled
         newTempTarget.duration = tempTarget.duration
-        newTempTarget.isUploadedToNS = true // to avoid getting duplicates on NS
+        newTempTarget.markUploaded(to: .nightscout) // pre-mark to avoid getting duplicates on NS
         newTempTarget.name = tempTarget.name
         newTempTarget.target = tempTarget.target
         newTempTarget.isPreset = false // no Preset
@@ -327,11 +326,7 @@ final class BaseTempTargetsStorage: TempTargetsStorage, Injectable {
         return try await CoreDataStack.shared.fetchPendingUploads(
             ofType: TempTargetRunStored.self,
             onContext: context,
-            predicate: NSPredicate(
-                format: "startDate >= %@ AND isUploadedToNS == %@",
-                Date.oneDayAgo as NSDate,
-                false as NSNumber
-            ),
+            predicate: NSPredicate.notYetUploaded(to: .nightscout, since: Date.oneDayAgo, dateKey: "startDate"),
             key: "startDate",
             ascending: false
         ) { tempTargetRun in

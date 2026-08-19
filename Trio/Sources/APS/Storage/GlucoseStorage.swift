@@ -256,9 +256,9 @@ final class BaseGlucoseStorage: GlucoseStorage, Injectable {
         entry.glucose = Int16(glucose.glucose ?? 0)
         entry.date = glucose.dateString
         entry.direction = glucose.direction?.rawValue
-        entry.isUploadedToNS = false
-        entry.isUploadedToHealth = false
-        entry.isUploadedToTidepool = false
+        entry.resetUpload(to: .nightscout)
+        entry.resetUpload(to: .health)
+        entry.resetUpload(to: .tidepool)
     }
 
     private func storeCGMState(_ glucose: [BloodGlucose]) {
@@ -338,9 +338,9 @@ final class BaseGlucoseStorage: GlucoseStorage, Injectable {
             newItem.date = Date()
             newItem.glucose = Int16(glucose)
             newItem.isManual = true
-            newItem.isUploadedToNS = false
-            newItem.isUploadedToHealth = false
-            newItem.isUploadedToTidepool = false
+            newItem.resetUpload(to: .nightscout)
+            newItem.resetUpload(to: .health)
+            newItem.resetUpload(to: .tidepool)
 
             do {
                 guard context.hasChanges else { return }

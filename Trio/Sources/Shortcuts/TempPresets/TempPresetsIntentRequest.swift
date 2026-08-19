@@ -139,7 +139,7 @@ final class TempPresetsIntentRequest: BaseIntentsRequest {
             // Enable TempTarget
             tempTargetObject.enabled = true
             tempTargetObject.date = Date()
-            tempTargetObject.isUploadedToNS = false
+            tempTargetObject.resetUpload(to: .nightscout)
 
             if viewContext.hasChanges {
                 debug(.default, "Saving changes...")
@@ -234,13 +234,13 @@ final class TempPresetsIntentRequest: BaseIntentsRequest {
                 newTempTargetRunStored.endDate = Date()
                 newTempTargetRunStored.target = canceledTempTarget.target ?? 0
                 newTempTargetRunStored.tempTarget = canceledTempTarget
-                newTempTargetRunStored.isUploadedToNS = false
+                newTempTargetRunStored.resetUpload(to: .nightscout)
             }
 
             // Disable all temp targets
             for tempTargetToCancel in results {
                 tempTargetToCancel.enabled = false
-                tempTargetToCancel.isUploadedToNS = false
+                tempTargetToCancel.resetUpload(to: .nightscout)
             }
 
             if viewContext.hasChanges {

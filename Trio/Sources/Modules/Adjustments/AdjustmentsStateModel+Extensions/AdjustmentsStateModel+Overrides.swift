@@ -16,7 +16,7 @@ extension Adjustments.StateModel {
 
             overrideToEnact.enabled = true
             overrideToEnact.date = Date()
-            overrideToEnact.isUploadedToNS = false
+            overrideToEnact.resetUpload(to: .nightscout)
             isOverrideEnabled = true
 
             guard viewContext.hasChanges else { return }
@@ -59,7 +59,7 @@ extension Adjustments.StateModel {
                             decimal: self.overrideStorage.calculateTarget(override: canceledOverride)
                         )
                         newOverrideRunStored.override = canceledOverride
-                        newOverrideRunStored.isUploadedToNS = false
+                        newOverrideRunStored.resetUpload(to: .nightscout)
                     }
                 }
 

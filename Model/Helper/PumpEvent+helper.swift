@@ -21,9 +21,6 @@ extension PumpEventStored {
             event.id = UUID().uuidString
             event.timestamp = Date.now.addingTimeInterval(Double(index) * -300) // Every 5 minutes
             event.type = EventType.bolus.rawValue
-            event.isUploadedToNS = false
-            event.isUploadedToHealth = false
-            event.isUploadedToTidepool = false
 
             // Add a bolus
             let bolus = BolusStored(context: context)
@@ -123,18 +120,15 @@ extension NSPredicate {
     }
 
     static var pumpEventsNotYetUploadedToNightscout: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(format: "timestamp >= %@ AND isUploadedToNS == %@", date as NSDate, false as NSNumber)
+        NSPredicate.notYetUploaded(to: .nightscout, since: Date.oneDayAgo, dateKey: "timestamp")
     }
 
     static var pumpEventsNotYetUploadedToHealth: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(format: "timestamp >= %@ AND isUploadedToHealth == %@", date as NSDate, false as NSNumber)
+        NSPredicate.notYetUploaded(to: .health, since: Date.oneDayAgo, dateKey: "timestamp")
     }
 
     static var pumpEventsNotYetUploadedToTidepool: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(format: "timestamp >= %@ AND isUploadedToTidepool == %@", date as NSDate, false as NSNumber)
+        NSPredicate.notYetUploaded(to: .tidepool, since: Date.oneDayAgo, dateKey: "timestamp")
     }
 }
 

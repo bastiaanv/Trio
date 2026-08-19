@@ -31,9 +31,6 @@ extension GlucoseStored {
             glucose.glucose = Int16(baseGlucose + (index % 3) * 10) // Varying between 120-140
             glucose.direction = BloodGlucose.Direction.flat.rawValue
             glucose.isManual = false
-            glucose.isUploadedToNS = false
-            glucose.isUploadedToHealth = false
-            glucose.isUploadedToTidepool = false
             return glucose
         }
 
@@ -83,36 +80,29 @@ extension NSPredicate {
     }
 
     static var glucoseNotYetUploadedToNightscout: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(format: "date >= %@ AND isUploadedToNS == %@", date as NSDate, false as NSNumber)
+        NSPredicate.notYetUploaded(to: .nightscout, since: Date.oneDayAgo, dateKey: "date")
     }
 
     static var glucoseNotYetUploadedToHealth: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(format: "date >= %@ AND isUploadedToHealth == %@", date as NSDate, false as NSNumber)
+        NSPredicate.notYetUploaded(to: .health, since: Date.oneDayAgo, dateKey: "date")
     }
 
     static var glucoseNotYetUploadedToTidepool: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(format: "date >= %@ AND isUploadedToTidepool == %@", date as NSDate, false as NSNumber)
+        NSPredicate.notYetUploaded(to: .tidepool, since: Date.oneDayAgo, dateKey: "date")
     }
 
     static var manualGlucoseNotYetUploadedToHealth: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(
-            format: "date >= %@ AND isUploadedToHealth == %@ AND isManual == %@",
-            date as NSDate,
-            false as NSNumber,
+        NSPredicate(
+            format: "%@ AND isManual == %@",
+            NSPredicate.notYetUploaded(to: .health, since: Date.oneDayAgo, dateKey: "date"),
             true as NSNumber
         )
     }
 
     static var manualGlucoseNotYetUploadedToTidepool: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(
-            format: "date >= %@ AND isUploadedToTidepool == %@ AND isManual == %@",
-            date as NSDate,
-            false as NSNumber,
+        NSPredicate(
+            format: "%@ AND isManual == %@",
+            NSPredicate.notYetUploaded(to: .tidepool, since: Date.oneDayAgo, dateKey: "date"),
             true as NSNumber
         )
     }

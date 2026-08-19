@@ -390,7 +390,7 @@ struct EditTempTargetForm: View {
         tempTarget.target = NSDecimalNumber(decimal: target)
         tempTarget.duration = NSDecimalNumber(decimal: duration)
         tempTarget.date = date
-        tempTarget.isUploadedToNS = false
+        tempTarget.resetUpload(to: .nightscout)
         if let halfBasalValue = halfBasalTarget {
             tempTarget.halfBasalTarget = NSDecimalNumber(decimal: halfBasalValue)
         } else {

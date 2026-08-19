@@ -18,6 +18,7 @@
         <attribute name="isUploadedToTidepool" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="protein" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="uploadStates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UploadState" inverseName="carbOwner" inverseEntity="UploadState"/>
         <fetchIndex name="byDate">
             <fetchIndexElement property="date" type="Binary" order="descending"/>
         </fetchIndex>
@@ -79,6 +80,7 @@
         <attribute name="isUploadedToNS" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isUploadedToTidepool" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="smoothedGlucose" optional="YES" attributeType="Decimal"/>
+        <relationship name="uploadStates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UploadState" inverseName="glucoseOwner" inverseEntity="UploadState"/>
         <fetchIndex name="byDate">
             <fetchIndexElement property="date" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -149,6 +151,7 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="timestampEnacted" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="forecasts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Forecast" inverseName="orefDetermination" inverseEntity="Forecast"/>
+        <relationship name="uploadStates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UploadState" inverseName="orefDeterminationOwner" inverseEntity="UploadState"/>
         <fetchIndex name="byDate">
             <fetchIndexElement property="deliverAt" type="Binary" order="descending"/>
         </fetchIndex>
@@ -164,6 +167,7 @@
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="target" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <relationship name="override" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OverrideStored" inverseName="overrideRun" inverseEntity="OverrideStored"/>
+        <relationship name="uploadStates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UploadState" inverseName="overrideRunOwner" inverseEntity="UploadState"/>
         <fetchIndex name="byDate">
             <fetchIndexElement property="startDate" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -191,6 +195,7 @@
         <attribute name="target" optional="YES" attributeType="Decimal" defaultValueString="0"/>
         <attribute name="uamMinutes" optional="YES" attributeType="Decimal" defaultValueString="30"/>
         <relationship name="overrideRun" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OverrideRunStored" inverseName="override" inverseEntity="OverrideRunStored"/>
+        <relationship name="uploadStates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UploadState" inverseName="overrideOwner" inverseEntity="UploadState"/>
         <fetchIndex name="byDate">
             <fetchIndexElement property="date" type="Binary" order="descending"/>
         </fetchIndex>
@@ -208,6 +213,7 @@
         <attribute name="type" optional="YES" attributeType="String"/>
         <relationship name="bolus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BolusStored" inverseName="pumpEvent" inverseEntity="BolusStored"/>
         <relationship name="tempBasal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TempBasalStored" inverseName="pumpEvent" inverseEntity="TempBasalStored"/>
+        <relationship name="uploadStates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UploadState" inverseName="pumpEventOwner" inverseEntity="UploadState"/>
         <fetchIndex name="byTimestamp">
             <fetchIndexElement property="timestamp" type="Binary" order="descending"/>
         </fetchIndex>
@@ -244,6 +250,7 @@
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="target" optional="YES" attributeType="Decimal" defaultValueString="160"/>
         <relationship name="tempTarget" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TempTargetStored" inverseName="tempTargetRun" inverseEntity="TempTargetStored"/>
+        <relationship name="uploadStates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UploadState" inverseName="tempTargetRunOwner" inverseEntity="UploadState"/>
         <fetchIndex name="byDate">
             <fetchIndexElement property="startDate" type="Binary" order="descending"/>
         </fetchIndex>
@@ -261,11 +268,27 @@
         <attribute name="orderPosition" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="target" optional="YES" attributeType="Decimal" defaultValueString="160"/>
         <relationship name="tempTargetRun" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TempTargetRunStored" inverseName="tempTarget" inverseEntity="TempTargetRunStored"/>
+        <relationship name="uploadStates" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="UploadState" inverseName="tempTargetOwner" inverseEntity="UploadState"/>
         <fetchIndex name="byDate">
             <fetchIndexElement property="date" type="Binary" order="descending"/>
         </fetchIndex>
         <fetchIndex name="byIsPreset">
             <fetchIndexElement property="isPreset" type="Binary" order="descending"/>
+        </fetchIndex>
+    </entity>
+    <entity name="UploadState" representedClassName="UploadState" syncable="YES">
+        <attribute name="backendId" optional="YES" attributeType="String"/>
+        <attribute name="uploadedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="carbOwner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CarbEntryStored" inverseName="uploadStates" inverseEntity="CarbEntryStored"/>
+        <relationship name="glucoseOwner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GlucoseStored" inverseName="uploadStates" inverseEntity="GlucoseStored"/>
+        <relationship name="orefDeterminationOwner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OrefDetermination" inverseName="uploadStates" inverseEntity="OrefDetermination"/>
+        <relationship name="overrideOwner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OverrideStored" inverseName="uploadStates" inverseEntity="OverrideStored"/>
+        <relationship name="overrideRunOwner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OverrideRunStored" inverseName="uploadStates" inverseEntity="OverrideRunStored"/>
+        <relationship name="pumpEventOwner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PumpEventStored" inverseName="uploadStates" inverseEntity="PumpEventStored"/>
+        <relationship name="tempTargetOwner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TempTargetStored" inverseName="uploadStates" inverseEntity="TempTargetStored"/>
+        <relationship name="tempTargetRunOwner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TempTargetRunStored" inverseName="uploadStates" inverseEntity="TempTargetRunStored"/>
+        <fetchIndex name="byBackendId">
+            <fetchIndexElement property="backendId" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
 </model>

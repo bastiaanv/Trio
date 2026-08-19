@@ -206,9 +206,9 @@ import Testing
         }
         #expect(bolusEvent != nil, "Should have found bolus event")
         #expect(bolusEvent?.bolus?.amount as? Decimal == 0.4, "Bolus amount should be 0.4")
-        #expect(bolusEvent?.isUploadedToNS == false, "Should not be uploaded to NS")
-        #expect(bolusEvent?.isUploadedToHealth == false, "Should not be uploaded to Health")
-        #expect(bolusEvent?.isUploadedToTidepool == false, "Should not be uploaded to Tidepool")
+        #expect(bolusEvent?.isUploaded(to: .nightscout) == false, "Should not be uploaded to NS")
+        #expect(bolusEvent?.isUploaded(to: .health) == false, "Should not be uploaded to Health")
+        #expect(bolusEvent?.isUploaded(to: .tidepool) == false, "Should not be uploaded to Tidepool")
         #expect(bolusEvent?.bolus?.isSMB == true, "Should be a SMB")
         #expect(bolusEvent?.bolus?.isExternal == false, "Should not be external insulin")
 
@@ -220,9 +220,9 @@ import Testing
         #expect(tempBasalEvent != nil, "Should have found temp basal event")
         #expect(tempBasalEvent?.tempBasal?.rate as? Decimal == 1.2, "Temp basal rate should be 1.2")
         #expect(tempBasalEvent?.tempBasal?.duration == 30, "Temp basal duration should be 30 minutes")
-        #expect(tempBasalEvent?.isUploadedToNS == false, "Should not be uploaded to NS")
-        #expect(tempBasalEvent?.isUploadedToHealth == false, "Should not be uploaded to Health")
-        #expect(bolusEvent?.isUploadedToTidepool == false, "Should not be uploaded to Tidepool")
+        #expect(tempBasalEvent?.isUploaded(to: .nightscout) == false, "Should not be uploaded to NS")
+        #expect(tempBasalEvent?.isUploaded(to: .health) == false, "Should not be uploaded to Health")
+        #expect(bolusEvent?.isUploaded(to: .tidepool) == false, "Should not be uploaded to Tidepool")
     }
 
     @Test("Test store function for manual boluses") func testStorePumpEventsWithManualBoluses() async throws {
@@ -282,9 +282,9 @@ import Testing
         )
         #expect(fetchedEvent?.bolus?.isSMB == false, "Should not be a SMB")
         #expect(fetchedEvent?.bolus?.isExternal == false, "Should not be external Insulin")
-        #expect(fetchedEvent?.isUploadedToNS == false, "Should not be uploaded to NS")
-        #expect(fetchedEvent?.isUploadedToHealth == false, "Should not be uploaded to Health")
-        #expect(fetchedEvent?.isUploadedToTidepool == false, "Should not be uploaded to Tidepool")
+        #expect(fetchedEvent?.isUploaded(to: .nightscout) == false, "Should not be uploaded to NS")
+        #expect(fetchedEvent?.isUploaded(to: .health) == false, "Should not be uploaded to Health")
+        #expect(fetchedEvent?.isUploaded(to: .tidepool) == false, "Should not be uploaded to Tidepool")
     }
 
     @Test("Test duplicates in PumpHistoryStorage") func testDuplicatePumpEvents() async throws {

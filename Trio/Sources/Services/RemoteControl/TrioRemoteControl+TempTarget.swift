@@ -57,9 +57,9 @@ extension TrioRemoteControl {
                     newTempTargetRunStored.endDate = Date()
                     newTempTargetRunStored.target = canceledTempTarget.target ?? 0
                     newTempTargetRunStored.tempTarget = canceledTempTarget
-                    newTempTargetRunStored.isUploadedToNS = false
+                    newTempTargetRunStored.resetUpload(to: .nightscout)
                     canceledTempTarget.enabled = false
-                    canceledTempTarget.isUploadedToNS = false
+                    canceledTempTarget.resetUpload(to: .nightscout)
                 }
                 if self.viewContext.hasChanges {
                     try self.viewContext.save()

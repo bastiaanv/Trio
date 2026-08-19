@@ -571,7 +571,7 @@ final class BaseNightscoutManager: NightscoutManager, Injectable {
         await UploadFlagMarker.markUploaded(
             OrefDetermination.self,
             ids: determination.map(\.id) as NSArray,
-            flag: \.isUploadedToNS,
+            backend: .nightscout,
             contextName: "updateOrefDeterminationAsUploaded"
         )
     }
@@ -825,7 +825,7 @@ final class BaseNightscoutManager: NightscoutManager, Injectable {
         await UploadFlagMarker.markUploaded(
             GlucoseStored.self,
             ids: glucose.map(\.id) as NSArray,
-            flag: \.isUploadedToNS,
+            backend: .nightscout,
             contextName: "updateGlucoseAsUploaded"
         )
     }
@@ -868,7 +868,7 @@ final class BaseNightscoutManager: NightscoutManager, Injectable {
         await UploadFlagMarker.markUploaded(
             PumpEventStored.self,
             ids: treatments.map(\.id) as NSArray,
-            flag: \.isUploadedToNS,
+            backend: .nightscout,
             contextName: "updatePumpEventStoredsAsUploaded"
         )
     }
@@ -896,7 +896,7 @@ final class BaseNightscoutManager: NightscoutManager, Injectable {
         await UploadFlagMarker.markUploaded(
             CarbEntryStored.self,
             ids: treatments.map(\.id) as NSArray,
-            flag: \.isUploadedToNS,
+            backend: .nightscout,
             contextName: "updateCarbsAsUploaded"
         )
     }
@@ -942,7 +942,7 @@ final class BaseNightscoutManager: NightscoutManager, Injectable {
         await UploadFlagMarker.markUploaded(
             OverrideStored.self,
             ids: overrides.map(\.id) as NSArray,
-            flag: \.isUploadedToNS,
+            backend: .nightscout,
             contextName: "updateOverridesAsUploaded"
         )
     }
@@ -987,7 +987,7 @@ final class BaseNightscoutManager: NightscoutManager, Injectable {
         await UploadFlagMarker.markUploaded(
             OverrideRunStored.self,
             ids: overrideRuns.map(\.id) as NSArray,
-            flag: \.isUploadedToNS,
+            backend: .nightscout,
             contextName: "updateOverrideRunsAsUploaded"
         )
     }
@@ -1015,7 +1015,7 @@ final class BaseNightscoutManager: NightscoutManager, Injectable {
         await UploadFlagMarker.markUploaded(
             TempTargetStored.self,
             ids: tempTargets.map(\.id) as NSArray,
-            flag: \.isUploadedToNS,
+            backend: .nightscout,
             contextName: "updateTempTargetsAsUploaded"
         )
     }
@@ -1043,7 +1043,7 @@ final class BaseNightscoutManager: NightscoutManager, Injectable {
         await UploadFlagMarker.markUploaded(
             TempTargetRunStored.self,
             ids: tempTargetRuns.map(\.id) as NSArray,
-            flag: \.isUploadedToNS,
+            backend: .nightscout,
             contextName: "updateTempTargetRunsAsUploaded"
         )
     }

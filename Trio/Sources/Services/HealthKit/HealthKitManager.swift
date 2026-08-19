@@ -257,7 +257,7 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
             do {
                 let results = try context.fetch(fetchRequest)
                 for result in results {
-                    result.isUploadedToHealth = true
+                    result.markUploaded(to: .health)
                 }
 
                 guard context.hasChanges else { return }
@@ -380,7 +380,7 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
             do {
                 let results = try context.fetch(fetchRequest)
                 for result in results {
-                    result.isUploadedToHealth = true
+                    result.markUploaded(to: .health)
                 }
 
                 guard context.hasChanges else { return }
@@ -631,7 +631,7 @@ final class BaseHealthKitManager: HealthKitManager, Injectable {
             do {
                 let results = try context.fetch(fetchRequest)
                 for result in results {
-                    result.isUploadedToHealth = true
+                    result.markUploaded(to: .health)
                 }
 
                 guard context.hasChanges else { return }

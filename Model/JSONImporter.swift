@@ -360,9 +360,9 @@ extension BloodGlucose {
         glucoseEntry.glucose = Int16(glucoseValue)
         glucoseEntry.direction = direction?.rawValue
         glucoseEntry.isManual = type == "Manual"
-        glucoseEntry.isUploadedToNS = true
-        glucoseEntry.isUploadedToHealth = true
-        glucoseEntry.isUploadedToTidepool = true
+        glucoseEntry.markUploaded(to: .nightscout)
+        glucoseEntry.markUploaded(to: .health)
+        glucoseEntry.markUploaded(to: .tidepool)
     }
 }
 
@@ -373,9 +373,9 @@ extension PumpHistoryEvent {
         pumpEntry.id = id
         pumpEntry.timestamp = timestamp
         pumpEntry.type = type.rawValue
-        pumpEntry.isUploadedToNS = true
-        pumpEntry.isUploadedToHealth = true
-        pumpEntry.isUploadedToTidepool = true
+        pumpEntry.markUploaded(to: .nightscout)
+        pumpEntry.markUploaded(to: .health)
+        pumpEntry.markUploaded(to: .tidepool)
 
         if type == .bolus {
             guard let amount = amount else {
@@ -479,9 +479,9 @@ extension CarbsEntry: Codable {
         carbEntry.protein = Double(truncating: NSDecimalNumber(decimal: protein?.rounded(toPlaces: 0) ?? 0))
         carbEntry.note = note ?? ""
         carbEntry.isFPU = false
-        carbEntry.isUploadedToNS = true
-        carbEntry.isUploadedToHealth = true
-        carbEntry.isUploadedToTidepool = true
+        carbEntry.markUploaded(to: .nightscout)
+        carbEntry.markUploaded(to: .health)
+        carbEntry.markUploaded(to: .tidepool)
     }
 }
 
@@ -680,7 +680,7 @@ extension Determination: Codable {
         newOrefDetermination.cob = Int16(Int(cob ?? 0))
         newOrefDetermination.smbToDeliver = units.map { NSDecimalNumber(decimal: $0) }
         newOrefDetermination.carbsRequired = Int16(Int(carbsReq ?? 0))
-        newOrefDetermination.isUploadedToNS = true
+        newOrefDetermination.markUploaded(to: .nightscout)
 
         if let predictions = predictions {
             ["iob": predictions.iob, "zt": predictions.zt, "cob": predictions.cob, "uam": predictions.uam]

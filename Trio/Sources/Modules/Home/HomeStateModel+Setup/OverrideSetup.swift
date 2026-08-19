@@ -75,7 +75,7 @@ extension Home.StateModel {
         newOverrideRunStored.endDate = Date()
         newOverrideRunStored.target = NSDecimalNumber(decimal: overrideStorage.calculateTarget(override: object))
         newOverrideRunStored.override = object
-        newOverrideRunStored.isUploadedToNS = false
+        newOverrideRunStored.resetUpload(to: .nightscout)
 
         do {
             guard viewContext.hasChanges else { return }

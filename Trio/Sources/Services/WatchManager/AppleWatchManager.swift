@@ -846,9 +846,9 @@ final class BaseWatchManager: NSObject, WCSessionDelegate, Injectable, WatchMana
                 carbEntry.date = date
                 carbEntry.note = String(localized: "Via Watch", comment: "Note added to carb entry when entered via watch")
                 carbEntry.isFPU = false // set this to false to ensure watch-entered carbs are displayed in main chart
-                carbEntry.isUploadedToNS = false
-                carbEntry.isUploadedToHealth = false
-                carbEntry.isUploadedToTidepool = false
+                carbEntry.resetUpload(to: .nightscout)
+                carbEntry.resetUpload(to: .health)
+                carbEntry.resetUpload(to: .tidepool)
 
                 do {
                     guard context.hasChanges else {
@@ -910,9 +910,9 @@ final class BaseWatchManager: NSObject, WCSessionDelegate, Injectable, WatchMana
                     carbEntry.date = date
                     carbEntry.note = String(localized: "Via Watch", comment: "Note added to carb entry when entered via watch")
                     carbEntry.isFPU = false // set this to false to ensure watch-entered carbs are displayed in main chart
-                    carbEntry.isUploadedToNS = false
-                    carbEntry.isUploadedToHealth = false
-                    carbEntry.isUploadedToTidepool = false
+                    carbEntry.resetUpload(to: .nightscout)
+                    carbEntry.resetUpload(to: .health)
+                    carbEntry.resetUpload(to: .tidepool)
 
                     guard context.hasChanges else {
                         // Acknowledge failure

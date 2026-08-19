@@ -860,6 +860,11 @@
 		DDD78ADA2DC421B500AC63F3 /* suggested.json in Resources */ = {isa = PBXBuildFile; fileRef = DDD78AD82DC421B500AC63F3 /* suggested.json */; };
 		DDD7C8C12F4DB45400E5CF09 /* GlucoseStored+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD7C8BF2F4DB45400E5CF09 /* GlucoseStored+CoreDataClass.swift */; };
 		DDD7C8C22F4DB45400E5CF09 /* GlucoseStored+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD7C8C02F4DB45400E5CF09 /* GlucoseStored+CoreDataProperties.swift */; };
+		D54FBD2013549EE9EBDA6E30 /* UploadBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0023D5DAB2EE2A5986DDD969 /* UploadBackend.swift */; };
+		599B9D98F480A6548425071F /* CoreDataStack+UploadStateBackfill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0375B09068E4014E9596F3CB /* CoreDataStack+UploadStateBackfill.swift */; };
+		AE34F4B47DFA0D1BDCBC52B7 /* NSManagedObject+UploadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D0461573C7A1C660B1B82 /* NSManagedObject+UploadState.swift */; };
+		2C1A45D218D23319E2CC84CF /* UploadState+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCF1A39EC2E546485ECFF90 /* UploadState+CoreDataClass.swift */; };
+		FB837430096D6C2B0635F5F9 /* UploadState+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F192E9D4B59436C3336745 /* UploadState+CoreDataProperties.swift */; };
 		DDDD0FFB2F4E22C000F9C645 /* GlucoseSmoothingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDD0FFA2F4E22C000F9C645 /* GlucoseSmoothingTests.swift */; };
 		DDDD0FFD2F4E22C000F9C645 /* GlucoseNativeConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDD0FFC2F4E22C000F9C645 /* GlucoseNativeConversionTests.swift */; };
 		DDDD0FFF2F4E231B00F9C645 /* MockTDDStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDD0FFE2F4E231B00F9C645 /* MockTDDStorage.swift */; };
@@ -1911,6 +1916,11 @@
 		DDD78AD82DC421B500AC63F3 /* suggested.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = suggested.json; sourceTree = "<group>"; };
 		DDD7C8BF2F4DB45400E5CF09 /* GlucoseStored+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GlucoseStored+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DDD7C8C02F4DB45400E5CF09 /* GlucoseStored+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GlucoseStored+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0023D5DAB2EE2A5986DDD969 /* UploadBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UploadBackend.swift"; sourceTree = "<group>"; };
+		0375B09068E4014E9596F3CB /* CoreDataStack+UploadStateBackfill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataStack+UploadStateBackfill.swift"; sourceTree = "<group>"; };
+		456D0461573C7A1C660B1B82 /* NSManagedObject+UploadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+UploadState.swift"; sourceTree = "<group>"; };
+		5FCF1A39EC2E546485ECFF90 /* UploadState+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UploadState+CoreDataClass.swift"; sourceTree = "<group>"; };
+		78F192E9D4B59436C3336745 /* UploadState+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UploadState+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DDDD0FFA2F4E22C000F9C645 /* GlucoseSmoothingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseSmoothingTests.swift; sourceTree = "<group>"; };
 		DDDD0FFC2F4E22C000F9C645 /* GlucoseNativeConversionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlucoseNativeConversionTests.swift; sourceTree = "<group>"; };
 		DDDD0FFE2F4E231B00F9C645 /* MockTDDStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTDDStorage.swift; sourceTree = "<group>"; };
@@ -3363,6 +3373,7 @@
 				BDB899892C565D0B006F3298 /* CarbsGlucose+helper.swift */,
 				58A3D5432C96DE11003F90FC /* TempTargetStored+Helper.swift */,
 				BD793CB12CE8032E00D669AC /* TempTargetRunStored.swift */,
+				456D0461573C7A1C660B1B82 /* NSManagedObject+UploadState.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -3392,6 +3403,8 @@
 				BD136FAD2F6AC555002217F9 /* NSFetchedResultsControllerDelegate.swift */,
 				3BAD36CB2D7D420500CC298D /* CoreDataInitializationCoordinator.swift */,
 				BDF34F8F2C10CF8C00D51995 /* CoreDataStack.swift */,
+				0023D5DAB2EE2A5986DDD969 /* UploadBackend.swift */,
+				0375B09068E4014E9596F3CB /* CoreDataStack+UploadStateBackfill.swift */,
 				BD4064D02C4ED26900582F43 /* CoreDataObserver.swift */,
 				3B997DCA2DC00849006B6BB2 /* JSONImporter.swift */,
 				DDD1631D2C4C6F6900CD525A /* TrioCoreDataPersistentContainer.xcdatamodeld */,
@@ -4479,6 +4492,8 @@
 			children = (
 				DDD7C8BF2F4DB45400E5CF09 /* GlucoseStored+CoreDataClass.swift */,
 				DDD7C8C02F4DB45400E5CF09 /* GlucoseStored+CoreDataProperties.swift */,
+				5FCF1A39EC2E546485ECFF90 /* UploadState+CoreDataClass.swift */,
+				78F192E9D4B59436C3336745 /* UploadState+CoreDataProperties.swift */,
 				BD4D738B2D15A4080052227B /* TDDStored+CoreDataClass.swift */,
 				BD4D738C2D15A4080052227B /* TDDStored+CoreDataProperties.swift */,
 				DDE179362C910127003CDDB7 /* BolusStored+CoreDataClass.swift */,
@@ -5065,6 +5080,11 @@
 				5CACC0DE000000000000B002 /* UploadTriggerController.swift in Sources */,
 				5CACC0DE000000000000B003 /* UploadFlagMarker.swift in Sources */,
 				5CACC0DE000000000000B004 /* CoreDataStack+PendingUploads.swift in Sources */,
+				D54FBD2013549EE9EBDA6E30 /* UploadBackend.swift in Sources */,
+				599B9D98F480A6548425071F /* CoreDataStack+UploadStateBackfill.swift in Sources */,
+				AE34F4B47DFA0D1BDCBC52B7 /* NSManagedObject+UploadState.swift in Sources */,
+				2C1A45D218D23319E2CC84CF /* UploadState+CoreDataClass.swift in Sources */,
+				FB837430096D6C2B0635F5F9 /* UploadState+CoreDataProperties.swift in Sources */,
 				BD47FDD92D8B657D0043966B /* InsulinSensitivityStepView.swift in Sources */,
 				3862CC2E2743F9F700BF832C /* CalendarManager.swift in Sources */,
 				38B4F3C325E2A20B00E76A18 /* PumpSetupView.swift in Sources */,

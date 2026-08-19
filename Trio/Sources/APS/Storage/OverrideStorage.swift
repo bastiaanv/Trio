@@ -139,7 +139,6 @@ final class BaseOverrideStorage: @preconcurrency OverrideStorage, Injectable {
             newOverride.id = UUID().uuidString
             newOverride.date = override.date
             newOverride.isPreset = override.isPreset
-            newOverride.isUploadedToNS = false
 
             // Assign orderPosition if it's a preset and presetCount is valid
             if override.isPreset, presetCount > -1 {
@@ -207,7 +206,7 @@ final class BaseOverrideStorage: @preconcurrency OverrideStorage, Injectable {
         newOverride.end = override.end
         newOverride.smbMinutes = override.smbMinutes
         newOverride.uamMinutes = override.uamMinutes
-        newOverride.isUploadedToNS = true // set to true to avoid getting duplicate entries on NS
+        newOverride.markUploaded(to: .nightscout) // pre-mark to avoid getting duplicate entries on NS
 
         await viewContext.perform {
             do {
@@ -280,11 +279,7 @@ final class BaseOverrideStorage: @preconcurrency OverrideStorage, Injectable {
         return try await CoreDataStack.shared.fetchPendingUploads(
             ofType: OverrideRunStored.self,
             onContext: context,
-            predicate: NSPredicate(
-                format: "startDate >= %@ AND isUploadedToNS == %@",
-                Date.oneDayAgo as NSDate,
-                false as NSNumber
-            ),
+            predicate: NSPredicate.notYetUploaded(to: .nightscout, since: Date.oneDayAgo, dateKey: "startDate"),
             key: "startDate",
             ascending: false
         ) { overrideRun in

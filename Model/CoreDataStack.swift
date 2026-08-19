@@ -288,6 +288,9 @@ class CoreDataStack: ObservableObject {
 
             setupPersistentStoreChangeNotifications()
 
+            // One-time migration of the legacy boolean upload flags into `UploadState`.
+            await backfillUploadStatesIfNeeded()
+
             debug(.coreData, "Core Data stack initialized successfully")
 
         } catch {

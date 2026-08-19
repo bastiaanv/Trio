@@ -34,7 +34,7 @@ extension TrioRemoteControl {
     @MainActor private func enactOverridePreset(preset: OverrideStored, payload: CommandPayload) async {
         preset.enabled = true
         preset.date = Date()
-        preset.isUploadedToNS = false
+        preset.resetUpload(to: .nightscout)
         await disableAllActiveOverrides(except: preset.objectID)
         do {
             if viewContext.hasChanges {
@@ -69,9 +69,9 @@ extension TrioRemoteControl {
                     newOverrideRunStored
                         .target = NSDecimalNumber(decimal: self.overrideStorage.calculateTarget(override: canceledOverride))
                     newOverrideRunStored.override = canceledOverride
-                    newOverrideRunStored.isUploadedToNS = false
+                    newOverrideRunStored.resetUpload(to: .nightscout)
                     canceledOverride.enabled = false
-                    canceledOverride.isUploadedToNS = false
+                    canceledOverride.resetUpload(to: .nightscout)
                 }
                 if self.viewContext.hasChanges {
                     try self.viewContext.save()

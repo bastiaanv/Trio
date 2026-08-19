@@ -86,9 +86,9 @@ final class BasePumpHistoryStorage: PumpHistoryStorage, Injectable {
                 newPumpEvent.id = UUID().uuidString
                 newPumpEvent.timestamp = timestamp
                 newPumpEvent.type = type.rawValue
-                newPumpEvent.isUploadedToNS = false
-                newPumpEvent.isUploadedToHealth = false
-                newPumpEvent.isUploadedToTidepool = false
+                newPumpEvent.resetUpload(to: .nightscout)
+                newPumpEvent.resetUpload(to: .health)
+                newPumpEvent.resetUpload(to: .tidepool)
                 existingByKey[key] = newPumpEvent
                 return newPumpEvent
             }
@@ -113,9 +113,9 @@ final class BasePumpHistoryStorage: PumpHistoryStorage, Injectable {
                             // Update existing event with new smaller value (e.g. a cancelled / partial bolus)
                             existingEvent.bolus?.amount = amount as NSDecimalNumber
                             existingEvent.bolus?.isSMB = dose.automatic ?? true
-                            existingEvent.isUploadedToNS = false
-                            existingEvent.isUploadedToHealth = false
-                            existingEvent.isUploadedToTidepool = false
+                            existingEvent.resetUpload(to: .nightscout)
+                            existingEvent.resetUpload(to: .health)
+                            existingEvent.resetUpload(to: .tidepool)
 
                             debug(.coreData, "Updated existing event with smaller value: \(amount)")
                         }
@@ -126,9 +126,9 @@ final class BasePumpHistoryStorage: PumpHistoryStorage, Injectable {
                     newPumpEvent.id = UUID().uuidString
                     newPumpEvent.timestamp = timestamp
                     newPumpEvent.type = PumpEvent.bolus.rawValue
-                    newPumpEvent.isUploadedToNS = false
-                    newPumpEvent.isUploadedToHealth = false
-                    newPumpEvent.isUploadedToTidepool = false
+                    newPumpEvent.resetUpload(to: .nightscout)
+                    newPumpEvent.resetUpload(to: .health)
+                    newPumpEvent.resetUpload(to: .tidepool)
 
                     let newBolusEntry = BolusStored(context: context)
                     newBolusEntry.pumpEvent = newPumpEvent
@@ -206,9 +206,9 @@ final class BasePumpHistoryStorage: PumpHistoryStorage, Injectable {
             // restrict entry to now or past
             newPumpEvent.timestamp = timestamp > Date() ? Date() : timestamp
             newPumpEvent.type = PumpEvent.bolus.rawValue
-            newPumpEvent.isUploadedToNS = false
-            newPumpEvent.isUploadedToHealth = false
-            newPumpEvent.isUploadedToTidepool = false
+            newPumpEvent.resetUpload(to: .nightscout)
+            newPumpEvent.resetUpload(to: .health)
+            newPumpEvent.resetUpload(to: .tidepool)
 
             // create bolus entry and specify relationship to pump event
             let newBolusEntry = BolusStored(context: context)

@@ -52,7 +52,7 @@ import Testing
             determination.deliverAt = date
             determination.timestamp = date
             determination.enacted = true
-            determination.isUploadedToNS = true
+            determination.markUploaded(to: .nightscout)
             try? testContext.save()
         }
 
@@ -72,7 +72,7 @@ import Testing
                 #expect(object.timestamp == date, "Determination within 30 minutes should have the same timestamp as date")
                 #expect(object.deliverAt == date, "Determination within 30 minutes should have the same deliverAt as date")
                 #expect(object.enacted == true, "Determination within 30 minutes should be enacted")
-                #expect(object.isUploadedToNS == true, "Determination within 30 minutes should be uploaded to NS")
+                #expect(object.isUploaded(to: .nightscout) == true, "Determination within 30 minutes should be uploaded to NS")
                 #expect(object.id == id, "Determination within 30 minutes should have the same id")
             } catch {
                 throw TestError("Failed to fetch determination")
@@ -92,7 +92,7 @@ import Testing
                     throw TestError("Failed to fetch determination")
                 }
                 #expect(object.enacted == true, "Enacted determination should be enacted")
-                #expect(object.isUploadedToNS == true, "Enacted determination should be uploaded to NS")
+                #expect(object.isUploaded(to: .nightscout) == true, "Enacted determination should be uploaded to NS")
                 #expect(object.id == id, "Enacted determination should have the same id")
                 #expect(object.timestamp == date, "Enacted determination should have the same timestamp")
                 #expect(object.deliverAt == date, "Enacted determination should have the same deliverAt")

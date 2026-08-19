@@ -833,7 +833,7 @@ final class BaseAPSManager: APSManager, Injectable {
 
                 determinationUpdated.timestamp = Date()
                 determinationUpdated.enacted = wasEnacted
-                determinationUpdated.isUploadedToNS = false
+                determinationUpdated.resetUpload(to: .nightscout)
 
                 guard context.hasChanges else { return }
                 try context.save()

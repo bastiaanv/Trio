@@ -26,39 +26,25 @@ extension NSPredicate {
     }
 
     static var carbsNotYetUploadedToNightscout: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(
-            format: "date >= %@ AND isUploadedToNS == %@ AND isFPU == %@ AND carbs > 0",
-            date as NSDate,
-            false as NSNumber,
+        NSPredicate(
+            format: "%@ AND isFPU == %@ AND carbs > 0",
+            NSPredicate.notYetUploaded(to: .nightscout, since: Date.oneDayAgo, dateKey: "date"),
             false as NSNumber
         )
     }
 
     static var carbsNotYetUploadedToHealth: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(
-            format: "date >= %@ AND isUploadedToHealth == %@",
-            date as NSDate,
-            false as NSNumber
-        )
+        NSPredicate.notYetUploaded(to: .health, since: Date.oneDayAgo, dateKey: "date")
     }
 
     static var carbsNotYetUploadedToTidepool: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(
-            format: "date >= %@ AND isUploadedToTidepool == %@",
-            date as NSDate,
-            false as NSNumber
-        )
+        NSPredicate.notYetUploaded(to: .tidepool, since: Date.oneDayAgo, dateKey: "date")
     }
 
     static var fpusNotYetUploadedToNightscout: NSPredicate {
-        let date = Date.oneDayAgo
-        return NSPredicate(
-            format: "date >= %@ AND isUploadedToNS == %@ AND isFPU == %@",
-            date as NSDate,
-            false as NSNumber,
+        NSPredicate(
+            format: "%@ AND isFPU == %@",
+            NSPredicate.notYetUploaded(to: .nightscout, since: Date.oneDayAgo, dateKey: "date"),
             true as NSNumber
         )
     }

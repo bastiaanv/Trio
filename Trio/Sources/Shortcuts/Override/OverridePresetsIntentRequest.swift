@@ -136,7 +136,7 @@ import UIKit
 
             overrideObject.enabled = true
             overrideObject.date = Date()
-            overrideObject.isUploadedToNS = false
+            overrideObject.resetUpload(to: .nightscout)
 
             if viewContext.hasChanges {
                 debug(.default, "Saving changes...")
@@ -211,7 +211,7 @@ import UIKit
                     decimal: overrideStorage.calculateTarget(override: canceledOverride)
                 )
                 newOverrideRunStored.override = canceledOverride
-                newOverrideRunStored.isUploadedToNS = false
+                newOverrideRunStored.resetUpload(to: .nightscout)
             }
 
             // Disable all active overrides
@@ -223,7 +223,7 @@ import UIKit
                     "Disabling override: \(overrideToCancel.name ?? "Unnamed") with end time: \(endTime?.description ?? "Unknown")"
                 )
                 overrideToCancel.enabled = false
-                overrideToCancel.isUploadedToNS = false
+                overrideToCancel.resetUpload(to: .nightscout)
             }
 
             if viewContext.hasChanges {

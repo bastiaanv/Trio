@@ -595,7 +595,7 @@ struct EditOverrideForm: View {
         override.cr = cr
         override.smbMinutes = smbMinutes.map { NSDecimalNumber(decimal: $0) }
         override.uamMinutes = uamMinutes.map { NSDecimalNumber(decimal: $0) }
-        override.isUploadedToNS = false
+        override.resetUpload(to: .nightscout)
     }
 
     private func resetValues() {

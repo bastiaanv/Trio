@@ -313,7 +313,7 @@ extension BaseTidepoolManager {
             do {
                 let results = try context.fetch(fetchRequest)
                 for result in results {
-                    result.isUploadedToTidepool = true
+                    result.markUploaded(to: .tidepool)
                 }
 
                 guard context.hasChanges else { return }
@@ -514,7 +514,7 @@ extension BaseTidepoolManager {
             do {
                 let results = try context.fetch(fetchRequest)
                 for result in results {
-                    result.isUploadedToTidepool = true
+                    result.markUploaded(to: .tidepool)
                 }
 
                 guard context.hasChanges else { return }
@@ -741,7 +741,7 @@ extension BaseTidepoolManager {
             do {
                 let results = try context.fetch(fetchRequest)
                 for result in results {
-                    result.isUploadedToTidepool = true
+                    result.markUploaded(to: .tidepool)
                 }
 
                 guard context.hasChanges else { return }

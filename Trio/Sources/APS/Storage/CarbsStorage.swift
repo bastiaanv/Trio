@@ -296,9 +296,10 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
             newItem.note = entry.note
             newItem.id = UUID()
             newItem.isFPU = false
-            newItem.isUploadedToNS = areFetchedFromRemote ? true : false
-            newItem.isUploadedToHealth = false
-            newItem.isUploadedToTidepool = false
+            if areFetchedFromRemote { newItem.markUploaded(to: .nightscout) }
+            // A fresh object has no upload state, so Health/Tidepool still need uploading.
+            newItem.resetUpload(to: .health)
+            newItem.resetUpload(to: .tidepool)
 
             if entry.fat != nil, entry.protein != nil, let fpuId = entry.fpuID {
                 newItem.fpuID = UUID(uuidString: fpuId)
@@ -330,8 +331,9 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
             carbEntry.id = UUID.init(uuidString: entryId)
             carbEntry.fpuID = commonFPUID
             carbEntry.isFPU = true
-            carbEntry.isUploadedToNS = areFetchedFromRemote ? true : false
-            // do NOT set Health and Tidepool flags to ensure they will NOT be uploaded
+            // Upload state (`uploadStates`) is applied after the batch insert below, since
+            // NSBatchInsertRequest cannot create relationships. Health/Tidepool are left
+            // un-marked so they still get uploaded.
             return false // return false to continue
         }
         let context = makeContext()
@@ -339,6 +341,15 @@ final class BaseCarbsStorage: CarbsStorage, Injectable {
         await context.perform {
             do {
                 try context.execute(batchInsert)
+
+                if areFetchedFromRemote {
+                    let fetchRequest = NSFetchRequest<CarbEntryStored>(entityName: "CarbEntryStored")
+                    fetchRequest.predicate = NSPredicate(format: "fpuID == %@", commonFPUID as CVarArg)
+                    let fpus = try context.fetch(fetchRequest)
+                    fpus.forEach { $0.markUploaded(to: .nightscout) }
+                    if context.hasChanges { try context.save() }
+                }
+
                 debugPrint("Carbs Storage: \(DebuggingIdentifiers.succeeded) saved fpus to core data")
 
                 // Notify subscriber in Home State Model to update the FPU Array
