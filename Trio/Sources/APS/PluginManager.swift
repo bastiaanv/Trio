@@ -55,11 +55,6 @@ class BasePluginManager: Injectable, PluginManager {
             manager: EversenseCGMManager.self
         ),
         CgmPluginDescription(
-            pluginIdentifier: AccuChekCgmManager.pluginIdentifier,
-            localizedTitle: String(localized: "Accu-Chek"),
-            manager: AccuChekCgmManager.self
-        ),
-        CgmPluginDescription(
             pluginIdentifier: CareSensCGMManager.pluginIdentifier,
             localizedTitle: String(localized: "CareSens Air"),
             manager: CareSensCGMManager.self

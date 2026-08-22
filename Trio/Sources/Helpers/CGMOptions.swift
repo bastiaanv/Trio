@@ -1,13 +1,11 @@
 let cgmOptions: [CGMOption] = [
-    CGMOption(name: "Accu-Chek", predicate: { $0.type == .plugin && $0.displayName == "Accu-Chek" }),
-    CGMOption(name: "CareSens Air", predicate: { $0.type == .plugin && $0.displayName == "CareSens Air" }),
     CGMOption(name: "Dexcom G5", predicate: { $0.type == .plugin && $0.displayName.contains("G5") }),
     CGMOption(name: "Dexcom G6 / ONE", predicate: { $0.type == .plugin && $0.displayName.contains("G6") }),
     CGMOption(name: "Dexcom G7 / ONE+", predicate: { $0.type == .plugin && $0.displayName.contains("G7") }),
     CGMOption(name: "Dexcom Share", predicate: { $0.type == .plugin && $0.displayName.contains("Dexcom Share") }),
-    CGMOption(name: "Eversense", predicate: { $0.type == .plugin && $0.displayName == "Eversense" }),
     CGMOption(name: "FreeStyle Libre", predicate: { $0.type == .plugin && $0.displayName == "FreeStyle Libre" }),
     CGMOption(name: "Accu-Chek SmartGuide", predicate: { $0.type == .plugin && $0.displayName == "Accu-Chek SmartGuide" }),
+    CGMOption(name: "CareSens Air", predicate: { $0.type == .plugin && $0.displayName == "CareSens Air" }),
     CGMOption(name: "Eversense", predicate: { $0.type == .plugin && $0.displayName == "Eversense" }),
     CGMOption(
         name: "FreeStyle Libre Demo",
