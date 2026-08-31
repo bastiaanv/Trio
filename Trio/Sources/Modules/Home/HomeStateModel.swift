@@ -1,3 +1,5 @@
+import AccuChekKit
+import CareSensKit
 import CGMBLEKit
 import CGMBLEKitUI
 import Combine
@@ -880,10 +882,12 @@ extension Home {
             if let g5 = manager as? G5CGMManager, let exp = g5.latestReading?.sessionExpDate { return exp }
 
             let activatedAt: Date?
-            if let g7 = manager as? G7CGMManager {
-                activatedAt = g7.sensorActivatedAt
-            } else if let libre = manager as? LibreTransmitterManagerV3 {
+            if let libre = manager as? LibreTransmitterManagerV3 {
                 activatedAt = libre.sensorInfoObservable.activatedAt
+            } else if let accuCheck = manager as? AccuChekCgmManager {
+                activatedAt = accuCheck.sensorActivatedAt
+            } else if let careSens = manager as? CareSensCGMManager {
+                activatedAt = careSens.sensorActivatedAt
             } else {
                 activatedAt = nil
             }

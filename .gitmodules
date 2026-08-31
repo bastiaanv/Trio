@@ -40,3 +40,6 @@
 [submodule "CareSensKit"]
 	path = CareSensKit
 	url = https://github.com/bastiaanv/CareSensKit
+[submodule "FlexKit"]
+	path = FlexKit
+	url = https://github.com/bastiaanv/FlexKit

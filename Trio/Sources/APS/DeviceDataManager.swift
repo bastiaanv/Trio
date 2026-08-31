@@ -2,6 +2,7 @@ import Algorithms
 import Combine
 import CoreData
 import DanaKit
+import FlexKit
 import Foundation
 import HealthKit
 import LoopKit
@@ -41,6 +42,7 @@ private let staticPumpManagers: [PumpManagerUI.Type] = [
     MinimedPumpManager.self,
     OmniPumpManager.self,
     DanaKitPumpManager.self,
+    FlexKitPumpManager.self,
     MedtrumPumpManager.self,
     MockPumpManager.self
 ]
@@ -49,6 +51,7 @@ private let staticPumpManagersByIdentifier: [String: PumpManagerUI.Type] = [
     MinimedPumpManager.pluginIdentifier: MinimedPumpManager.self,
     OmniPumpManager.pluginIdentifier: OmniPumpManager.self,
     DanaKitPumpManager.pluginIdentifier: DanaKitPumpManager.self,
+    FlexKitPumpManager.pluginIdentifier: FlexKitPumpManager.self,
     MedtrumPumpManager.pluginIdentifier: MedtrumPumpManager.self,
     MockPumpManager.pluginIdentifier: MockPumpManager.self
 ]

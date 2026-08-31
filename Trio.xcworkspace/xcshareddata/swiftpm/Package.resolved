@@ -1,5 +1,5 @@
 {
-  "originHash" : "06083dd987c08c7aa6b328b8f9e21090cb058de0d1af12090a99a7b024bd36bc",
+  "originHash" : "fc574e6a00f05014d3c57bc33fefb0b72593dbdd7bdf202ebda0ded9aa223642",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -62,6 +62,15 @@
       "state" : {
         "revision" : "f40325520344a966523b214394aa350132a6af68",
         "version" : "1.0.203"
+      }
+    },
+    {
+      "identity" : "cmbedtls",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bastiaanv/CMbedTLS",
+      "state" : {
+        "branch" : "main",
+        "revision" : "561ca758742c29b15096f6ac6d6a9990c3fb31fa"
       }
     },
     {
