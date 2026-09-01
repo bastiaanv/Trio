@@ -238,7 +238,8 @@ extension Home {
             }
             // PUMP RELATED
             .confirmationDialog("Pump Model", isPresented: $showPumpSelection) {
-                Button("Medtronic") { state.addPump(.minimed) }
+                Button("Medtronic Old") { state.addPump(.minimed) }
+                Button("Medtronic Flex") { state.addPump(.minimedFlex) }
                 Button("All Omnipod Types") { state.addPump(.omni) }
                 Button("Dana(RS/-i)") { state.addPump(.dana) }
                 Button("Medtrum Nano") { state.addPump(.medtrum) }

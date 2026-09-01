@@ -7,6 +7,7 @@ enum PumpConfig {
 
     enum PumpType: Equatable, CaseIterable {
         case minimed
+        case minimedFlex
         case omni
         case dana
         case medtrum
@@ -17,6 +18,7 @@ enum PumpConfig {
         var pluginIdentifier: String? {
             switch self {
             case .minimed: return "Minimed"
+            case .minimedFlex: return "FlexKit"
             case .omni: return "Omni"
             case .dana: return "Dana"
             case .medtrum: return "Medtrum"

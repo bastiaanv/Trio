@@ -1,4 +1,5 @@
 import DanaKit
+import FlexKit
 import LoopKit
 import LoopKitUI
 import MedtrumKit
@@ -34,6 +35,15 @@ extension PumpConfig {
             switch pumpType {
             case .minimed:
                 setupViewController = MinimedPumpManager.setupViewController(
+                    initialSettings: initialSettings,
+                    bluetoothProvider: bluetoothManager,
+                    colorPalette: .default,
+                    allowDebugFeatures: true,
+                    prefersToSkipUserInteraction: false,
+                    allowedInsulinTypes: [.apidra, .humalog, .novolog, .fiasp, .lyumjev]
+                )
+            case .minimedFlex:
+                setupViewController = FlexKitPumpManager.setupViewController(
                     initialSettings: initialSettings,
                     bluetoothProvider: bluetoothManager,
                     colorPalette: .default,
