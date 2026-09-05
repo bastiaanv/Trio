@@ -30,9 +30,13 @@ extension Home {
         @State var showQuickPickTreatmentsNoHistory = false
         @State var showPumpSelection: Bool = false
         @State var showCGMSelection: Bool = false
+        @State var pendingPump: PumpCatalogEntry?
+        @State var pendingCGM: CGMCatalogEntry?
         @State var showSnoozeSheet: Bool = false
         @State var showManualGlucose: Bool = false
+        @State var showReleaseNotes: Bool = false
         @State var alarmsSnoozeUntil: Date = .distantPast
+        @ObservedObject var releaseNotesService = ReleaseNotesService.shared
         // Pull-down-to-force-loop (see HomeRootView+Refresh.swift)
         @State var pullOffset: CGFloat = 0
         @State var isRefreshArmed = false
@@ -215,6 +219,9 @@ extension Home {
                 configureView()
                 refreshAlarmsSnooze()
             }
+            .task {
+                await releaseNotesService.load()
+            }
             // UserDefaults changes don't invalidate views; refresh on sheet dismissal
             .onChange(of: showSnoozeSheet) {
                 if !showSnoozeSheet { refreshAlarmsSnooze() }
@@ -231,20 +238,26 @@ extension Home {
             .sheet(isPresented: $showSnoozeSheet) {
                 SnoozeAlertsSheetView(resolver: resolver, isPresented: $showSnoozeSheet)
             }
+            .sheet(isPresented: $showReleaseNotes) {
+                if let notes = releaseNotesService.notes {
+                    ReleaseNotesSheetView(notes: notes) {
+                        releaseNotesService.acknowledge()
+                    }
+                }
+            }
             .sheet(isPresented: $showManualGlucose) {
                 ManualGlucoseEntryView(units: state.units, isPresented: $showManualGlucose) { amount in
                     state.addManualGlucose(amount)
                 }
             }
-            // PUMP RELATED
-            .confirmationDialog("Pump Model", isPresented: $showPumpSelection) {
-                Button("Medtronic Old") { state.addPump(.minimed) }
-                Button("Medtronic Flex") { state.addPump(.minimedFlex) }
-                Button("All Omnipod Types") { state.addPump(.omni) }
-                Button("Dana(RS/-i)") { state.addPump(.dana) }
-                Button("Medtrum Nano") { state.addPump(.medtrum) }
-                Button("Pump Simulator") { state.addPump(.simulator) }
-            } message: { Text("Select Pump Model") }
+            // DEVICE SELECTION (pump + CGM)
+            .devicePickers(
+                showPumpSelection: $showPumpSelection,
+                showCGMSelection: $showCGMSelection,
+                pendingPump: $pendingPump,
+                pendingCGM: $pendingCGM,
+                state: state
+            )
             .sheet(isPresented: $state.shouldDisplayPumpSetupSheet) {
                 if let pumpManager = state.provider.apsManager.pumpManager {
                     PumpConfig.PumpSettingsView(
@@ -253,9 +266,9 @@ extension Home {
                         completionDelegate: state,
                         setupDelegate: state
                     )
-                } else {
+                } else if let pumpEntry = state.setupPumpEntry {
                     PumpConfig.PumpSetupView(
-                        pumpType: state.setupPumpType,
+                        pumpEntry: pumpEntry,
                         pumpInitialSettings: state.pumpInitialSettings,
                         bluetoothManager: state.provider.apsManager.bluetoothManager!,
                         completionDelegate: state,
@@ -264,15 +277,9 @@ extension Home {
                 }
             }
             // CGM RELATED
-            .confirmationDialog("CGM Model", isPresented: $showCGMSelection) {
-                cgmSelectionButtons
-            } message: {
-                Text("Select CGM Model")
-            }
             .sheet(isPresented: $state.shouldDisplayCGMSetupSheet) {
                 switch state.cgmCurrent.type {
-                case .enlite,
-                     .nightscout,
+                case .nightscout,
                      .none,
                      .simulator,
                      .xdrip:
