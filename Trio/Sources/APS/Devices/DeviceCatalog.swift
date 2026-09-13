@@ -5,6 +5,7 @@ import CGMBLEKit
 import CGMBLEKitUI
 import DanaKit
 import EversenseKit
+import FlexKit
 import Foundation
 import G7SensorKit
 import G7SensorKitUI
@@ -417,6 +418,15 @@ extension DeviceCatalog {
             supportedModels: ["x15", "x22", "x23", "x54"],
             icon: .uiBundle(identifier: "org.loopkit.MinimedKitUI", asset: "5xx Small Outline"),
             basalCapability: BasalRateCapability(supportedRates: MinimedPumpManager.onboardingSupportedBasalRates),
+            reportsRewindEvents: true
+        ),
+        PumpCatalogEntry(
+            FlexKitPumpManager.self,
+            manufacturer: .medtronic,
+            name: "MiniMed",
+            supportedModels: ["Flex"],
+            icon: .managerBundle(asset: "pump"),
+            basalCapability: BasalRateCapability(supportedRates: FlexKitPumpManager.onboardingSupportedBasalRates),
             reportsRewindEvents: true
         ),
         PumpCatalogEntry(
