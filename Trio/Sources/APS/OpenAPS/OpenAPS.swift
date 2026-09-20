@@ -234,6 +234,7 @@ final class OpenAPS {
     }
 
     func determineBasal(
+        for dosingMode: DosingMode,
         currentTemp: TempBasal,
         supportedBasalRates: [Decimal],
         shouldSmoothGlucose: Bool,
@@ -254,7 +255,9 @@ final class OpenAPS {
             carbsDate: simulatedCarbsDate
         )
 
-        var preferences = await storage.retrieveAsync(OpenAPS.Settings.preferences, as: Preferences.self) ?? Preferences()
+        // second, independent read into the algorithm; needs the same clamp as the profile
+        var preferences = (await storage.retrieveAsync(OpenAPS.Settings.preferences, as: Preferences.self) ?? Preferences())
+            .clamped(for: dosingMode)
         let glucoseFetchHours = preferences.maxMealAbsorptionTime + 0.5 // MMAT + half hour buffer
         async let glucoseFetch = glucoseStorage.getGlucoseForAlgorithm(
             shouldSmoothGlucose: shouldSmoothGlucose,
@@ -295,6 +298,8 @@ final class OpenAPS {
         var profile = try JSONBridge.profile(from: rawProfile)
         // pump capability is injected here rather than persisted, so it can never go stale
         profile.supportedBasalRates = supportedBasalRates
+        // derived here, not baked into profile.json, which the JS parity goldens compare
+        profile.suspendOnly = dosingMode.automation == .hypoSuspendOnly
         let basalProfile = try JSONBridge.basalProfile(from: rawBasalProfile)
         let autosens = try JSONBridge.autosens(from: rawAutosens.isEmpty ? .null : rawAutosens)
         let reservoir = Decimal(string: rawReservoir) ?? 100
@@ -489,7 +494,7 @@ final class OpenAPS {
         return autosens
     }
 
-    func createProfiles() async throws {
+    func createProfiles(for dosingMode: DosingMode) async throws {
         debug(.openAPS, "Start creating pump profile and user profile")
 
         let context = newContext("createProfiles")
@@ -550,6 +555,9 @@ final class OpenAPS {
                 debug(.openAPS, "Setting lowTTlowersSens to false due to insufficient autosensMax: \(preferences.autosensMax)")
             }
         }
+
+        // clamp after the HBT block above, which needs the user's real autosensMax
+        adjustedPreferences = adjustedPreferences.clamped(for: dosingMode)
 
         let clock = Date()
         do {
